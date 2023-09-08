@@ -2,36 +2,46 @@
 
 ## Synopsis
 
-Allocate $75k to RevNet.
+*Note – this proposal is still in progress and will be finalized over the next few hours.*
+
+Allocate $75k towards RevNet development.
 
 ## Motivation
 
-In principle, Juicebox allows a project creator to bootstrap and operate a community over time with transparent guarantees and incentives, and to strike a balance between centralized control and decentralized governance and access to funds.
+In principle, Juicebox allows anyone to bootstrap and operate a project over time with transparent guarantees and incentives, and to strike a balance between centralization and decentralization according to their needs.
 
-In practice, Juicebox has proven highly effective for bootstrapping projects, but outside of JuiceboxDAO itself (and projects closely working with it), few projects have gone on to sustainably operate using it. Although many factors are likely at play, one possible explanation is that:
+In practice, Juicebox has proven highly effective for bootstrapping projects, but outside of JuiceboxDAO itself (and projects closely working with it), fewer projects have gone on to sustainably operate using it. Although many factors are likely at play, one possible explanation is that:
 
-1. For projects ultimately aiming to operate in a centralized manner, the overhead of operating on Juicebox isn't worth it once the project has been funded. This makes sense – Juicebox's mechanisms are very useful for building trust while bootstrapping these projects, but once they are established, the risk of smart contract exploits, onboarding difficulties for new crypto users, ETH's volatility, and the burden of onchain management often lead these project owners to migrate to fiat banking or manually managing funds through a multisig. This is not due to Juicebox's shortcomings; rather, it can be understood as a byproduct of operating within the Ethereum ecosystem.[^1]
+1. For projects ultimately aiming to operate in a centralized manner, the overhead of operating on Juicebox isn't worth it once the project has been funded. This makes sense – Juicebox's mechanisms are very useful for building trust while bootstrapping these projects, but once they are established, the risk of smart contract exploits, onboarding difficulties for new crypto users, ETH's volatility, and the burden of onchain management often lead these project owners to migrate to fiat banking or manually managing funds through a multisig. This is not due to Juicebox's shortcomings; rather, it is a byproduct of operating within the Ethereum ecosystem.[^1]
 2. Projects ultimately aiming to operate in a decentralized manner typically want to avoid having a project owner at all. Even if ownership can decentralize over time (e.g. via a multisig), the burden of governance and operation through a single point of failure (the project NFT) can prove cumbersome.
 
-This issue applies to almost all governing and operative frameworks on Ethereum – even with tools like Governor Bravo, governance frequently becomes burdensome, and funding allocations can fail to reflect community wishes due to the outsized influence of small groups (often the founding members or core developers). These and other issues lead to community apathy and disengagement.
+This issue applies to almost all governing and operative frameworks on Ethereum – even with tools like Governor Bravo, governance frequently becomes burdensome, and funding allocations can fail to reflect community wishes. These and other issues lead to community apathy and disengagement.
 
 RevNets[^2] pose a solution to this problem: if a project operates entirely according to pre-determined rules and incentives, governance is no longer necessary, and a community can focus on their actual objectives instead of worrying about self-governing.
 
 ## How RevNets Work
 
-RevNets are built on top of and extend the Juicebox protocol. RevNets are Juicebox projects, and anyone can deploy one. Like Juicebox projects, anyone can pay a RevNet with ETH and mint its tokens. RevNets start out continuously minting 1 token per ETH, or if they use USD accounting, 1 token per USD worth of ETH.
+RevNets are built on top of and extend the Juicebox protocol. RevNets are Juicebox projects, and anyone can deploy one. Like Juicebox projects, anyone can pay a RevNet with ETH and mint its tokens. RevNets start out minting 1 token per ETH, or if they use USD accounting, 1 token per USD worth of ETH.
 
-RevNets token issuance evolves over generations which last a pre-defined length of time (28 days, for example). There are three main parameters:
+A RevNet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three parameters determine how its tokens are issued:
 
-1. The **Entry Curve**. The cost to enter the network increases over time, incentivizing participants to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5% entry curve, 5% fewer tokens are minted per ETH each generation.
-2. The **Exit Curve**. Leaving the network (by burning tokens) reclaims some ETH. The closer an exit curve is to 100%, the less ETH goes to the first to exit, and the more ETH goes to the last to exit, incentivizing participants to stay in the network longer. You can experiment with different exit curves [on Desmos](https://www.desmos.com/calculator/q9jwaefswq).
+1. The **Entry Curve**. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5% entry curve, 5% fewer tokens are minted per ETH each generation.
+2. The **Exit Curve**. Leaving the network (by burning tokens) reclaims some ETH from the network. The closer an exit curve is to 100%, the more ETH goes to the last participants to exit, and less ETH goes to the first participants to exit. This incentivizes participants to stay in the network longer. You can visualize and experiment with different exit curves [on Desmos](https://www.desmos.com/calculator/q9jwaefswq).
 3. The **Boost**. For a pre-determined length of time (140 days, for example) after a RevNet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
 
 RevNet creators can optionally pre-mint a number of tokens for themselves at the time of the network's creation. **RevNets have no owner.** Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
 
-## RevNet Implications
+## Why Use RevNets?
 
-<!-- TODO: What do RevNets do? What do they mean? -->
+Some options offer more centralized control. This can be helpful for bootstrapping project development, but can lead to issues on the path to decentralization. Other options prioritize decentralization. This can make it difficult to get a project off the ground.
+
+RevNets solve both of these problems: the network begins decentralized, but the boost can be used to incentivize bootstrapping efforts as needed. They also:
+
+- Don't require governance.
+- Treat all participants equally. [Devs, investors, and customers are all incentivized](https://jango.eth.limo/?id=3EB05292-0376-4B7D-AFCF-042B70673C3D) to participate in the growth of the network.
+- Are impossible to rugpull.
+
+As long as a network continues to grow, the amount of ETH that current participants can reclaim by exiting will continue to rise. The most a participant can lose is difference between the ETH they entered with and the amount of ETH they can get back by exiting at that time.
 
 ## What We're Building
 
@@ -42,9 +52,11 @@ RevNet creators can optionally pre-mint a number of tokens for themselves at the
 
 <!-- TODO: Break down into deliverables. -->
 
-$25,000 upon ratification.
-$25,000 upon delivery of the frontend.
-$25,000 upon delivery of the contracts.
+*This section will be developed with checkpoints and objectives.*
+
+- $25,000 upon ratification.
+- $25,000 upon delivery of the frontend.
+- $25,000 upon delivery of the contracts.
 
 <!-- TODO: Risks, timeline -->
 
