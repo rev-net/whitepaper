@@ -2,9 +2,7 @@
 
 ## Synopsis
 
-*Note – this proposal is still in progress and will be finalized over the next few hours.*
-
-Allocate $75k towards RevNet development.
+Allocate $75k towards RevNet (Revenue Network) development across three checkpoints.
 
 ## Motivation
 
@@ -33,7 +31,7 @@ RevNet creators can optionally pre-mint a number of tokens for themselves at the
 
 ## Why Use RevNets?
 
-Some options offer more centralized control. This can be helpful for bootstrapping project development, but can lead to issues on the path to decentralization. Other options prioritize decentralization. This can make it difficult to get a project off the ground.
+Some options offer more centralized control, which can be helpful for bootstrapping project development, but can lead to issues on the path to decentralization. Other options prioritize decentralization, which can make it difficult to get a project off the ground.
 
 RevNets solve both of these problems: the network begins decentralized, but the boost can be used to incentivize bootstrapping efforts as needed. They also:
 
@@ -43,22 +41,44 @@ RevNets solve both of these problems: the network begins decentralized, but the 
 
 As long as a network continues to grow, the amount of ETH that current participants can reclaim by exiting will continue to rise. The most a participant can lose is difference between the ETH they entered with and the amount of ETH they can get back by exiting at that time.
 
+RevNets won't be the best model for starting a hardware store, or for fundraisers where the owners need to maintain control. But for experimental software projects, ownerless social media networks, or new protocols like Juicebox, it offers a completely new type of model – one that might be able to out-compete traditional ones.
+
+RevNets are obviously experimental and there's no guarantee that this will work, but we think it's worth experimenting with.
+
 ## What We're Building
 
-1. A fully-featured frontend for creating, joining, exiting, and exploring RevNets. So far, peacenode has been leading the designs on [Figma](https://www.figma.com/file/77qCG4RaG0T1qfDHpRS2zI/Retailismo) and Aeolian has begun implementing the [`revnet-app`](https://github.com/rev-net/revnet-app).
-2. A collection of Ethereum smart contracts which allow anyone to create or interact with customized RevNets. Further contract development could include helper contracts for managing boost allocations.
+1. A fully-featured frontend for creating, joining, exiting, and exploring RevNets. So far, peacenode has been leading the designs on [Figma](https://www.figma.com/file/77qCG4RaG0T1qfDHpRS2zI/Retailismo) and Aeolian has begun implementing the [`revnet-app`](https://github.com/rev-net/revnet-app). A work-in-progress prototype is available on [revnet-app.vercel.app](https://revnet-app.vercel.app/net/1223).
+2. A collection of Ethereum smart contracts to extend the Juicebox protocol, allowing anyone to create or interact with customized RevNets. Further contract development may include lockup or other helper contracts for managing boost allocations, or something else.
+
+Rob from Open Esquire has been hanging around the Discord server and providing input – we'd like to secure his services in addressing RevNet's legal needs.
 
 ## Specification
 
-<!-- TODO: Break down into deliverables. -->
+1. In the cycle following this proposal's approval, send $25,000 USD worth of ETH to the RevNet multisig[^3] to fund ongoing development.
+2. In the first cycle once both a production-ready frontend and the core RevNet contracts are deployed, send $25,000 USD worth of ETH to RevNet.
+3. In the first cycle once $100,000 USD worth of ETH flows through RevNets (not including RevNet's own network), send $25,000 USD worth of ETH to RevNet.
 
-*This section will be developed with checkpoints and objectives.*
+These distributions should only be made with approval from at least 60% of the JuiceboxDAO multisig. The initial distribution will be sent to the RevNet multisig, but future distributions may be sent to the RevNet multisig, a Juicebox project, or a RevNet network as dictated by RevNet multisig signers. 
 
-- $25,000 upon ratification.
-- $25,000 upon delivery of the frontend.
-- $25,000 upon delivery of the contracts.
+## Timeline
 
-<!-- TODO: Risks, timeline -->
+We're planning a four-week sprint to get the first version of a RevNet frontend out and to have contracts deployed, and to keep moving from there. If you're interested in helping out, join the [Retailism Discord server](https://discord.gg/6Zr7Rtv6Ea).
+
+## Risks
+
+1. We're building complex software. There's always a risk of exploits, and this is particularly true of smart contract development.
+2. For a variety of reasons, people might not want to use RevNets for their projects.
+3. RevNet's economic models are untested, and might not work well in practice.
+4. Development may take much longer than expected – it's hard to accurately project development timelines.
+
+## Further Reading
+
+1. Jango, [Retailism](https://jango.eth.limo/?id=9E01E72C-6028-48B7-AD04-F25393307132).
+2. Jango, [Modeling Retailism](https://jango.eth.limo/?id=B762F3CC-AEFE-4DE0-B08C-7C16400AF718).
+3. Aeolian, [Retailism: a first look](https://aeolian.eth.limo/E6F9D1FE-DB20-450C-8F37-78C3870D1620/).
+
+Also see Jango's [other posts on Retailism](https://jango.eth.limo/?tags=retailism).
 
 [^1]: These issues might be mitigated somewhat with multi-asset support (ERC-20 terminals), simple fiat onboarding in protocol clients, OAuth wallet creation, and further progress in onchain management tools like Safe.
 [^2]: RevNets are an implementation of [Retailism](https://jango.eth.limo/?id=9E01E72C-6028-48B7-AD04-F25393307132), an organizational model conceived of by Jango. See [`retailism-templates`](https://github.com/mejango/retailism-templates) for an example implementation.
+[^3]: The RevNet multisig is on Ethereum mainnet: [`0x8Bc12fEf1f8EFe25fE96fb9B407c46159e82201C`](https://app.safe.global/home?safe=eth:0x8Bc12fEf1f8EFe25fE96fb9B407c46159e82201C).
