@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 \title{RevNets}
 \author{Filip\\ \texttt{f@filip.world}}
@@ -8,7 +9,7 @@
 \maketitle
 
 \begin{abstract}
-  Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization and its product. The centralized nature of the bootstrapping process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{RevNets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined tokenomic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
+  Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{RevNets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
 
 \section{Introduction}
@@ -25,7 +26,7 @@ Smart contracts have enabled novel models for organizing, operating, and governi
 
 \section{Mechanism}
 
-Each RevNet has its own token (the \textit{network token}) which represents partial network ownership. Anyone can pay ETH into a network to buy its token (thus joining the network). If the network uses ETH-based accounting, payers receive 1 token per ETH under the network's intial conditions. If the network uses USD-based accounting, they receive 1 token per USD worth of ETH.\footnote{For example, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.}
+Each RevNet has its own token (the \textit{network token}) which represents partial network ownership. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a RevNet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
 A RevNet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three parameters determine how its tokens are issued:
 
@@ -39,13 +40,47 @@ Network creators can optionally pre-mint a number of tokens for themselves at th
 
 \subsection{Entry Curve}
 
+The entry curve can be expressed as:
+
+\begin{equation}
+  T_n = T_0 \times (1 - r)^{(n - 1)}
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
+  \item $T_0$ is the number of tokens issued per ETH in the initial generation,
+  \item $r$ is the \textit{Entry Curve}, or rate of decrease per generation (expressed as a decimal), and
+  \item $n$ is the generation number, which increments sequentially starting from 1.
+\end{itemize}
+
+Since RevNets always have a $T_0$ (initial price) of 1 token per ETH, this can be re-written as:
+
+\begin{equation}
+  T_n = (1 - r)^{(n - 1)}
+\end{equation}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
+   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations. Put simply, the tokens get more expensive over time.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/multi-entry-curves.png}
+  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% entry curves $(r = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
+\end{figure}
+
 \subsection{Exit Curve}
 
 \subsection{Boost}
 
 \section{Implementation}
 
-Our implementation extends the Juicebox protocol 
+Our implementation extends the Juicebox protocol
+
+To create a RevNet, one must define
 
 \section{Applications}
 
@@ -56,6 +91,10 @@ Our implementation extends the Juicebox protocol
 \section{Miscellanea}
 
 \subsection{Network Token Implementation}
+
+\subsection{Accounting Types}\label{sec:accounting_types}
+
+If the network uses USD-based accounting, payers will receive 1 token per USD worth of ETH under the network's intial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.
 
 \section{Conclusion}
 
