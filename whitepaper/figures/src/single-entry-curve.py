@@ -15,7 +15,7 @@ Tn = T0 * (1 - r)**np.floor(x - 1)
 # Plotting the graph
 plt.figure(figsize=(10, 8))
 plt.step(x, Tn, where='post', color='blue')
-plt.title(f"Tokens Issued per ETH Over {generations} Generations With a {r*100}% Entry Curve", fontsize=20)
+plt.title(f"Tokens Issued per ETH Over {generations} Generations With a {int(r*100)}% Entry Curve", fontsize=20)
 plt.xlabel("Generation Number (n)", fontsize=18)
 plt.ylabel("Tokens Issued per ETH ($T_n$)", fontsize=18)
 plt.grid(True)

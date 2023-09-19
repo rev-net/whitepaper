@@ -1,9 +1,10 @@
 \documentclass{article}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 \title{RevNets}
-\author{Filip\\ \texttt{f@filip.world}}
+\author{Filip\\f@filip.world}
 
 \begin{document}
 \maketitle
@@ -40,39 +41,69 @@ Network creators can optionally pre-mint a number of tokens for themselves at th
 
 \subsection{Entry Curve}
 
-The entry curve can be expressed as:
+The cost of acquiring a network's tokens becomes more expensive over time. This is done by reducing the number of tokens issued per ETH with each passing generation. The rate at which this reduction occurs is determined by the entry curve $r_{\text{en}}$, which is set by the network's creator.
+
+The entry curve function\footnote{Also see the interactive entry curve function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
 
 \begin{equation}
-  T_n = T_0 \times (1 - r)^{(n - 1)}
+  T_n = T_1 \times (1 - r_{\text{en}})^{(n - 1)}
 \end{equation}
 
 where:
 \begin{itemize}
   \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
-  \item $T_0$ is the number of tokens issued per ETH in the initial generation,
-  \item $r$ is the \textit{Entry Curve}, or rate of decrease per generation (expressed as a decimal), and
+  \item $T_1$ is the number of tokens issued per ETH in the first generation,
+  \item $r_{\text{en}}$ is the \textit{entry curve}, or rate of decrease per generation (expressed as a decimal), and
   \item $n$ is the generation number, which increments sequentially starting from 1.
 \end{itemize}
 
-Since RevNets always have a $T_0$ (initial price) of 1 token per ETH, this can be re-written as:
+Since RevNets always have a $T_1$ (initial price) of 1 token per ETH, this can be re-written as:
 
 \begin{equation}
-  T_n = (1 - r)^{(n - 1)}
+  T_n = (1 - r_{\text{en}})^{(n - 1)}
 \end{equation}
+
+This mechanism provides an incentive for participants to join the network early. The earlier a participant joins, the more tokens they receive for their ETH.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
-   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations. Put simply, the tokens get more expensive over time.}
+   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r_{\text{en}} = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations. Put simply, the tokens get more expensive over time.}
 \end{figure}
 
+\clearpage
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/multi-entry-curves.png}
-  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% entry curves $(r = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
+  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% entry curves $(r_{\text{en}} = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
 
 \subsection{Exit Curve}
+
+Anyone can exit the network by burning their tokens, which allows them to reclaim some of the network's ETH. The ETH return amount is determined by the exit curve $r_{\text{ex}}$, which is set by the network's creator.
+
+The exit curve function\footnote{Also see the interactive exit curve function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
+
+\begin{equation}
+  V_r = \frac{V_t \times x}{s}\left(\left(1-r_{\text{ex}}\right)+\frac{r_{\text{ex}} \times x}{s}\right)
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $V_r$ is the amount of ETH which gets reclaimed,
+  \item $V_t$ is the total amount of ETH in the network,
+  \item $s$ is the total supply of tokens,
+  \item $r_{\text{ex}}$ is the \textit{exit curve} (expressed as a decimal), and
+  \item $x$ is the number of tokens being burned.
+\end{itemize}
+
+This function ensures that the more tokens are burned (i.e., the larger $x$ is), the more ETH is reclaimed per token. This means the first participants to exit a network get less ETH per token than participants who exit later. This incentivizes participants to stay in the network longer than other participants to increase the amount of ETH they can reclaim by exiting.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/multi-exit-curves.png}
+  \caption{This figure shows exit curve functions for exit curves of 0\%, 33\%, 66\%, and 100\% $(r_{\text{ex}} = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total token supply being burned, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that under a 100\% exit curve, a network participant which exited by burning \textit{e.g.} 10\% of the total token supply would receive 10\% of the network's ETH. The larger the exit curve, the less ETH earlier exiters receive.}
+\end{figure}
 
 \subsection{Boost}
 
@@ -95,6 +126,8 @@ To create a RevNet, one must define
 \subsection{Accounting Types}\label{sec:accounting_types}
 
 If the network uses USD-based accounting, payers will receive 1 token per USD worth of ETH under the network's intial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.
+
+\subsection{L2s}
 
 \section{Conclusion}
 
