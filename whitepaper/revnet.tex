@@ -1,16 +1,17 @@
 \documentclass{article}
-\usepackage{hyperref}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\input{solidity-highlighting.tex}
 
-\title{RevNets}
+\title{Revnets}
 \author{Filip\\f@filip.world}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-  Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{RevNets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
+  Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{Revnets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
 
 \section{Introduction}
@@ -27,17 +28,17 @@ Smart contracts have enabled novel models for organizing, operating, and governi
 
 \section{Mechanism}
 
-Each RevNet has its own token (the \textit{network token}) which represents partial network ownership. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a RevNet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet has its own token (the \textit{network token}) which represents partial network ownership. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a Revnet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
-A RevNet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three parameters determine how its tokens are issued:
+A Revnet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three parameters determine how its tokens are issued:
 
 \begin{itemize}
   \item \textbf{The Entry Curve}. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5\% entry curve, 5\% fewer tokens are minted per ETH each generation.
   \item \textbf{The Exit Curve}. Leaving the network (by burning tokens) reclaims some ETH from the network. The closer an exit curve is to 100\%, the more ETH goes to the last participants to exit, and less ETH goes to the first participants to exit. This incentivizes participants to stay in the network longer. You can visualize and experiment with different exit curves on Desmos.
-  \item \textbf{The Boost}. For a pre-determined length of time (140 days, for example) after a RevNet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
+  \item \textbf{The Boost}. For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
 \end{itemize}
 
-Network creators can optionally pre-mint a number of tokens for themselves at the time of the network's creation. RevNets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
+Network creators can optionally pre-mint a number of tokens for themselves at the time of the network's creation. Revnets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
 
 \subsection{Entry Curve}
 
@@ -57,18 +58,18 @@ where:
   \item $n$ is the generation number, which increments sequentially starting from 1.
 \end{itemize}
 
-Since RevNets always have a $T_1$ (initial price) of 1 token per ETH, this can be re-written as:
+Since Revnets always have a $T_1$ (initial price) of 1 token per ETH, this can be simplified to:
 
 \begin{equation}
   T_n = (1 - r_{\text{en}})^{(n - 1)}
 \end{equation}
 
-This mechanism provides an incentive for participants to join the network early. The earlier a participant joins, the more tokens they receive for their ETH.
+The entry curve mechanism provides an incentive for participants to join the network early. The earlier a participant joins, the more tokens they receive for their ETH.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
-   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r_{\text{en}} = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations. Put simply, the tokens get more expensive over time.}
+   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r_{\text{en}} = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
 \end{figure}
 
 \clearpage
@@ -80,7 +81,7 @@ This mechanism provides an incentive for participants to join the network early.
 
 \subsection{Exit Curve}
 
-Anyone can exit the network by burning their tokens, which allows them to reclaim some of the network's ETH. The ETH return amount is determined by the exit curve $r_{\text{ex}}$, which is set by the network's creator.
+Anyone can exit the network by burning their tokens, which allows them to reclaim some of the network's ETH. The amount of ETH which can be reclaimed is determined by the exit curve $r_{\text{ex}}$, which is set by the network's creator.
 
 The exit curve function\footnote{Also see the interactive exit curve function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
 
@@ -93,25 +94,80 @@ where:
   \item $V_r$ is the amount of ETH which gets reclaimed,
   \item $V_t$ is the total amount of ETH in the network,
   \item $s$ is the total supply of tokens,
-  \item $r_{\text{ex}}$ is the \textit{exit curve} (expressed as a decimal), and
+  \item $r_{\text{ex}}$ is the \textit{exit curve}, and
   \item $x$ is the number of tokens being burned.
 \end{itemize}
 
-This function ensures that the more tokens are burned (i.e., the larger $x$ is), the more ETH is reclaimed per token. This means the first participants to exit a network get less ETH per token than participants who exit later. This incentivizes participants to stay in the network longer than other participants to increase the amount of ETH they can reclaim by exiting.
+This function ensures that the more tokens are burned (i.e., the larger $x$ is), the more ETH gets reclaimed per token. This means the first participants to exit a network get less ETH per token than participants who exit later. This incentivizes participants to stay in the network longer than other participants in order to increase the amount of ETH they can reclaim by exiting.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/multi-exit-curves.png}
-  \caption{This figure shows exit curve functions for exit curves of 0\%, 33\%, 66\%, and 100\% $(r_{\text{ex}} = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total token supply being burned, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that under a 100\% exit curve, a network participant which exited by burning \textit{e.g.} 10\% of the total token supply would receive 10\% of the network's ETH. The larger the exit curve, the less ETH earlier exiters receive.}
+  \caption{This figure shows exit curve functions for exit curves of 0\%, 33\%, 66\%, and 100\% $(r_{\text{ex}} = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total token supply being burned, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% exit curve $(r_{\text{ex}} = 0)$, reclaim amounts are linear with respect to the number of tokens being burned---a network participant which exited by burning \textit{e.g.} 10\% of the total token supply would reclaim 10\% of the network's ETH. The larger the exit curve, the less ETH earlier exiters receive.}
 \end{figure}
 
 \subsection{Boost}
 
-\section{Implementation}
+% TODO: Expand this section
 
-Our implementation extends the Juicebox protocol
+For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
 
-To create a RevNet, one must define
+\subsection{Buyback}
+
+\section{Contract Implementation}
+
+Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s,  and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol, thus inheriting the risks and security of the Juicebox protocol. Revnets leverage Juicebox's discount rate logic for entry curve calculations, its redemption logic for exit curve calculations, and its reserved rate logic for boost calculations.
+
+Each Revnet is a Juicebox project, which is deployed, owned, and administrated by one of the contracts below.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    Contract Name & Description \\
+    \hline
+    \texttt{BasicRetailistJBDeployer} & Deploys a basic Revnet. \\
+    \hline
+    \texttt{PayAllocatorRetailistJBDeployer} & \\
+    \hline
+    \texttt{Tiered721PayAllocatorRetailistJBDeployer} & \\
+    \hline
+  \end{tabular}
+  \caption{The Revnet deployer contracts.}
+\end{table}
+
+\subsection{BasicRetailistJBDeployer}
+
+Anyone can deploy a basic Revnet by calling the \texttt{BasicRetailistJBDeployer} contract's \texttt{deployBasicNetworkFor(...)} function:
+
+\begin{lstlisting}[language=Solidity]
+function deployBasicNetworkFor(
+  address _operator,
+  JBProjectMetadata memory _networkMetadata,
+  string memory _name,
+  string memory _symbol,
+  BasicRetailistJBParams memory _data,
+  IJBPaymentTerminal[] memory _terminals,
+  BuybackDelegateSetup memory _buybackDelegateSetup
+)
+  public
+  returns (uint256 networkId)
+{ ... }
+\end{lstlisting}
+
+This function accepts the following parameters:
+
+\begin{itemize}
+  \item \texttt{\_operator} An address that will receive the boost and any pre-minted token. This address has permission to change the boost recipient(s).
+  \item \texttt{\_networkMetadata} The Revnet's metadata content and domain (for use in clients).
+  \item \texttt{\_name} The name of the ERC-20 token being created for the Revnet.
+  \item \texttt{\_symbol} The symbol of the ERC-20 token being created for the Revnet.
+  \item \texttt{\_data} A \texttt{BasicRetailistJBParams} struct which specifies the initial token issuance rate for the first generation, the number of tokens which should be pre-minted to the boost address, the generation length, the entry and exit curves, and the boost percentage and duration.
+  \item \texttt{\_terminals} The Juicebox payment terminals that the network uses to accept payments.
+  \item \texttt{\_buybackDelegateSetup} Info for setting up the buyback delegate to use when determining the best price for new participants.
+\end{itemize}
+
+This function deploys and configures the Revnet, deploys the Revnet's ERC-20, premints tokens as needed, and grants the appropriate permissions to the boost address. It then returns a \texttt{networkId}, the Juicebox project ID of the newly created Revnet.
 
 \section{Applications}
 
@@ -121,7 +177,7 @@ To create a RevNet, one must define
 
 \section{Miscellanea}
 
-\subsection{Network Token Implementation}
+\subsection{Network Token}
 
 \subsection{Accounting Types}\label{sec:accounting_types}
 

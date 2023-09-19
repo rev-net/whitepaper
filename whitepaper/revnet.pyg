@@ -1,0 +1,12 @@
+function deployBasicNetworkFor(
+  address _operator,
+  JBProjectMetadata memory _networkMetadata,
+  string memory _name,
+  string memory _symbol,
+  BasicRetailistJBParams memory _data,
+  IJBPaymentTerminal[] memory _terminals,
+  BuybackDelegateSetup memory _buybackDelegateSetup
+)
+  public
+  returns (uint256 networkId)
+{ ... }
