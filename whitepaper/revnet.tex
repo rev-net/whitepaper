@@ -14,23 +14,23 @@
   Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{Revnets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
 
-\section{Introduction}
-
-Ethereum.org\cite{daos} describes DAOs as ``Member-owned communities without centralized leadership.''
-
-\begin{quote}
-  \textit{DAOs allow us to work with like-minded folks around the globe without trusting a benevolent leader to manage the funds or operations.}
-\end{quote}
-
-DAOs and other onchain organizations often fail to live up to the promise of collective ownership and governance. Despite the use of theoretically decentralized consensus models, funding decisions are often made by a founding team or group of core developers. In practice, governance frequently serves only to ratify decisions which have already been made. This can lead to voter apathy and community disengagement.
-
-Smart contracts have enabled novel models for organizing, operating, and governing communities through incentives, but current implementations are often bottlenecked by a core team required to facilitate
+\clearpage
 
 \section{Mechanism}
 
-Each Revnet has its own token (the \textit{network token}) which represents partial network ownership. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a Revnet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet has its own token (the \textit{network token}), and accepts a currency. For illustrative purposes, this section describes an example $\$token$ priced in ETH. Revnets can both accept and denominate in other currencies in practice.
 
-A Revnet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three parameters determine how its tokens are issued:
+Each Revnet has its own token (the \textit{network token}) which represents a claim on the network's revenue. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a Revnet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+
+A Revnet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how its tokens are issued:
+
+\begin{itemize}
+  \item The \textbf{Price Ceiling}. The price to create new tokens, thus expanding the total supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
+  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying tokens, thus contracting the total supply. The price floor increases dynamically as the network expands over time or contracts.
+  \item The \textbf{Price Window}. Liquidity can be added to a $\$token$ / ETH AMM pool at any time. While the network token's AMM price is between the price ceiling and price floor, purchases and sales are fulfilled by the AMM. Otherwise, purchases and sales are always fulfilled at the price ceiling and price floor.
+\end{itemize}
+
+Revnets also specifiy a \textbf{Boost}. A temporary incentive which routes a percentage of token purchases to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else.
 
 \begin{itemize}
   \item \textbf{The Entry Curve}. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5\% entry curve, 5\% fewer tokens are minted per ETH each generation.
@@ -39,6 +39,8 @@ A Revnet's token issuance evolves over generations which last a pre-defined leng
 \end{itemize}
 
 Network creators can optionally pre-mint a number of tokens for themselves at the time of the network's creation. Revnets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
+
+Revnets can also specify a buyback contract to route incoming payments to a Uniswap liquidity pool if doing so would yield more tokens than paying into the network, as described in Section~\ref{sec:buyback}.
 
 \subsection{Entry Curve}
 
@@ -108,11 +110,11 @@ This function ensures that the more tokens are burned (i.e., the larger $x$ is),
 
 \subsection{Boost}
 
-% TODO: Expand this section
-
 For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
 
-\subsection{Buyback}
+\subsection{Buyback}\label{sec:buyback}
+
+Revnets also have the option to specify a \textit{Buyback Delegate}\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract. A Buyback Delegate contract maximizes the number of tokens that a payer will receive by routing incoming payments to a Uniswap liquidity pool if doing so would yield more tokens than a payment into the network.
 
 \section{Contract Implementation}
 
@@ -171,7 +173,19 @@ This function deploys and configures the Revnet, deploys the Revnet's ERC-20, pr
 
 \section{Applications}
 
+% Software projects (like Wikipedia)
+% Social networks (like Twitter)
+% DAOs
+% Insurance
+% Public goods
+% Artist fan club
+% Political activist groups
+
+\subsection{}
+
 \subsection{Software}
+
+Revnets 
 
 \subsection{Social Networks}
 
@@ -187,8 +201,8 @@ If the network uses USD-based accounting, payers will receive 1 token per USD wo
 
 \section{Conclusion}
 
-\bibliographystyle{plain}
-\bibliography{references}
+% \bibliographystyle{plain}
+% \bibliography{references}
 
 \end{document}
 

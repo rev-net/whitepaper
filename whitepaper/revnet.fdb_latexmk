@@ -1,14 +1,6 @@
 # Fdb version 4
-["bibtex revnet"] 1695151232 "revnet.aux" "revnet.bbl" "revnet" 1695153469 0
-  "./references.bib" 1695067420 202 05b8638239303c11c6d00c97b2771014 ""
-  "/usr/share/texmf-dist/bibtex/bst/base/plain.bst" 1689853683 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "revnet.aux" 1695153469 4137 f78743d0c5607be3966642881cdb34ab "pdflatex"
-  (generated)
-  "revnet.bbl"
-  "revnet.blg"
-  (rewritten before read)
-["pdflatex"] 1695153468 "/home/f/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1695153469 0
-  "/home/f/revnet-writing/whitepaper/revnet.tex" 1695153468 12037 cdb21886c3a640f68b1324774b3925d3 ""
+["pdflatex"] 1695328883 "/home/f/p/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1695328885 0
+  "/home/f/p/revnet-writing/whitepaper/revnet.tex" 1695328883 13253 c3606f6c68fc99a8dabaceefde3940ee ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1689853683 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1689853683 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1689853683 1004 54797486969f23fa377b128694d548df ""
@@ -104,16 +96,15 @@
   "/usr/share/texmf-dist/tex/latex/url/url.sty" 1689853683 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty" 1689853683 56148 51a9a8571c07b9921892ae11063ae853 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1689853683 40684 9b9ec0b4288972636ff6a3b9c4238efc ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1692994688 325246 7217e157e5466427c18ad35e6ae60d51 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1694042712 6768065 478264a657871675eb762da124ced99f ""
-  "figures/multi-entry-curves.png" 1695074787 69744 1c374cbdf6fd3084c4b9b23a4017cbf1 ""
-  "figures/multi-exit-curves.png" 1695096087 110366 1a10de7cbb205b8783fda8e9d0698852 ""
-  "figures/single-entry-curve.png" 1695074811 46122 3bb141e597f2f3a0595c8c10a4603631 ""
-  "revnet.aux" 1695153469 4137 f78743d0c5607be3966642881cdb34ab "pdflatex"
-  "revnet.bbl" 1695151232 175 7b302a9e08863e5aa8c86da1ea6d24e3 "bibtex revnet"
-  "revnet.out" 1695153469 1798 691deb538baaf31ef6fdd5ea0d8dc878 "pdflatex"
-  "revnet.tex" 1695153468 12037 cdb21886c3a640f68b1324774b3925d3 ""
-  "solidity-highlighting.tex" 1695149824 2763 2b2925b59ea41ef6732bcf2aa822b574 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1695250139 325246 7217e157e5466427c18ad35e6ae60d51 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1695250135 6768057 5111cd4670ffa28c95b088e579206645 ""
+  "figures/multi-entry-curves.png" 1695252329 69744 1c374cbdf6fd3084c4b9b23a4017cbf1 ""
+  "figures/multi-exit-curves.png" 1695252329 110366 1a10de7cbb205b8783fda8e9d0698852 ""
+  "figures/single-entry-curve.png" 1695252329 46122 3bb141e597f2f3a0595c8c10a4603631 ""
+  "revnet.aux" 1695328884 4123 1eaf98e5b2679edae451621e874e1855 "pdflatex"
+  "revnet.out" 1695328884 1744 cdd89c1820b6b7380f74795c0021b651 "pdflatex"
+  "revnet.tex" 1695328883 13253 c3606f6c68fc99a8dabaceefde3940ee ""
+  "solidity-highlighting.tex" 1695252329 2763 2b2925b59ea41ef6732bcf2aa822b574 ""
   (generated)
   "revnet.aux"
   "revnet.log"
