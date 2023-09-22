@@ -16,104 +16,93 @@
 
 \section{Mechanism}
 
-Each Revnet has its own token (the \textit{network token}) which represents a claim on the network's revenue. Each Revnet accepts a currency, which people can pay the network with to buy its token (thus joining the network). For illustrative purposes, this section describes a network which accepts ETH and issues a \textit{\$token}.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet accepts a specific currency, chosen when the network is created. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim some of the currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \textit{\$token}.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
-Revnets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
-
-Under the network's initial conditions, payers receive 1 \$token per ETH. A Revnet's \$token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how \$tokens can be purchased and sold:
+Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how \$tokens can be purchased and sold:
 
 \begin{itemize}
-  \item The \textbf{Price Ceiling}. The price to create new \$tokens, thus expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
-  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying \$tokens, thus contracting the \$token supply. The price floor increases dynamically as the network contracts or expands over time.
-  \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH automated market maker (AMM) pool at any time. While the \$token's price is between the price ceiling and price floor, purchases and sales are fulfilled by the pool if possible. Otherwise, purchases and sales are fulfilled at the price ceiling and price floor.
+  \item The \textbf{Price Ceiling}. The price to create new \$tokens, thus expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.fixed
+  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying \$tokens, thus contracting the \$token supply. The price floor increases dynamically as the network contracts or expands.
+  \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's price is between the price ceiling and price floor, \$tokens are purchased and sold on the market if possible. Otherwise, purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
 \end{itemize}
 
-Revnets can also specifiy a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of tokens to this address when the network is created.
+In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand.
 
-% \begin{itemize}
-%   \item \textbf{The Entry Curve}. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5\% entry curve, 5\% fewer tokens are minted per ETH each generation.
-%   \item \textbf{The Exit Curve}. Leaving the network (by burning tokens) reclaims some ETH from the network. The closer an exit curve is to 100\%, the more ETH goes to the last participants to exit, and less ETH goes to the first participants to exit. This incentivizes participants to stay in the network longer. You can visualize and experiment with different exit curves on Desmos.
-%   \item \textbf{The Boost}. For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
-% \end{itemize}
+Revnets can also specify a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of \$tokens to this address when the network is created. The boost can be used to boost the growth of a network.
 
+Revnets have no owner. Once they are deployed, their parameters are locked in place.
 
 \subsection{Price Ceiling}
 
-The cost of acquiring a network's tokens becomes more expensive over time. This is done by reducing the number of tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_\text{en}$ set by the network's creator.
+The cost to expand the \$token supply increases over time. This is done by reducing the number of \$tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_c$ set by the network's creator.
 
-The entry curve function\footnote{Also see the interactive entry curve function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
+The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
 
 \begin{equation}
-  T_n = T_1 \times (1 - r_{\text{en}})^{(n - 1)}
+  T_n = T_1 \times (1 - r_c)^{(n - 1)}
 \end{equation}
 
 where:
 \begin{itemize}
   \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
   \item $T_1$ is the number of tokens issued per ETH in the first generation,
-  \item $r_{\text{en}}$ is the \textit{entry curve}, or rate of decrease per generation (expressed as a decimal), and
+  \item $r_c$ is the price ceiling curve, or rate of decrease per generation (expressed as a decimal), and
   \item $n$ is the generation number, which increments sequentially starting from 1.
 \end{itemize}
 
-Since Revnets always have a $T_1$ (initial price) of 1 token per ETH, this can be simplified to:
+Since Revnets always have a $T_1$ (initial price) of 1 \$token per ETH, this can be simplified to:
 
 \begin{equation}
-  T_n = (1 - r_{\text{en}})^{(n - 1)}
+  T_n = (1 - r_c)^{(n - 1)}
 \end{equation}
 
-The entry curve mechanism provides an incentive for participants to join the network early. The earlier a participant joins, the more tokens they receive for their ETH.
+The price ceiling encourages participants to join the network early. The earlier a participant joins, the more \$tokens they receive for their ETH.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
-   \caption{This figure shows how $T_n$ (the number of tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% entry curve $(r_{\text{en}} = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
+   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
 \end{figure}
 
 \clearpage
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/multi-entry-curves.png}
-  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% entry curves $(r_{\text{en}} = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
+  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% price ceiling curves $(r_c = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
 
 \subsection{Price Floor}
 
-Anyone can exit the network by burning their tokens, which allows them to reclaim some of the network's ETH. The amount of ETH which can be reclaimed is determined by the exit curve $r_{\text{ex}}$, which is set by the network's creator.
+Anyone can destroy their \$tokens to reclaim ETH from the network. The amount of ETH they can reclaim is determined by the price floor function, which is dynamically calculated based on a price floor curve $r_f$ set by the network's creator, the total \$token supply, and the amount of ETH in the network.
 
-The exit curve function\footnote{Also see the interactive exit curve function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
+The price floor function\footnote{Also see the interactive price floor function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
 
 \begin{equation}
-  V_r = \frac{V_t \times x}{s}\left(\left(1-r_{\text{ex}}\right)+\frac{r_{\text{ex}} \times x}{s}\right)
+  V_r = \frac{V_t \times x}{s}\left(\left(1-r_f\right)+\frac{r_f \times x}{s}\right)
 \end{equation}
 
 where:
 \begin{itemize}
   \item $V_r$ is the amount of ETH which gets reclaimed,
   \item $V_t$ is the total amount of ETH in the network,
-  \item $s$ is the total supply of tokens,
-  \item $r_{\text{ex}}$ is the \textit{exit curve}, and
-  \item $x$ is the number of tokens being burned.
+  \item $s$ is the total \$token supply,
+  \item $r_f$ is the price floor curve (expressed as a decimal), and
+  \item $x$ is the number of \$tokens being burned.
 \end{itemize}
 
-This function ensures that the more tokens are burned (i.e., the larger $x$ is), the more ETH gets reclaimed per token. This means the first participants to exit a network get less ETH per token than participants who exit later. This incentivizes participants to stay in the network longer than other participants in order to increase the amount of ETH they can reclaim by exiting.
+Unless $r_f$ is 0, this function ensures that as more \$tokens are destroyed (i.e., the larger $x$ is), the more ETH is reclaimed per token.\footnote{If $r_f$ is 0, each \$token will yield the same amount of ETH when destroyed.} This means the first participants to destroy their \$tokens get less ETH per \$token than participants who destroy their \$tokens later. This incentivizes participants to stay in the network longer than other participants in order to increase the amount of ETH they can reclaim.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/multi-exit-curves.png}
-  \caption{This figure shows exit curve functions for exit curves of 0\%, 33\%, 66\%, and 100\% $(r_{\text{ex}} = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total token supply being burned, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% exit curve $(r_{\text{ex}} = 0)$, reclaim amounts are linear with respect to the number of tokens being burned---a network participant which exited by burning \textit{e.g.} 10\% of the total token supply would reclaim 10\% of the network's ETH. The larger the exit curve, the less ETH earlier exiters receive.}
+  \caption{This figure shows price floor functions with price floor curves of 0\%, 33\%, 66\%, and 100\% $(r_f = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total \$token supply being destroyed, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% price floor curve $(r_f = 0)$, reclaim amounts are linear with respect to the number of tokens being destroyed---a network participant which destroys \textit{e.g.} 10\% of the total token supply can reclaim 10\% of the network's ETH. The larger the price floor curve, the less ETH earlier reclaimers receive.}
 \end{figure}
-
-\subsection{Boost}
-
-For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
-
-\subsection{Buyback}
-
-Revnets also have the option to specify a \textit{Buyback Delegate}\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract. A Buyback Delegate contract maximizes the number of tokens that a payer will receive by routing incoming payments to a Uniswap liquidity pool if doing so would yield more tokens than a payment into the network.
 
 \section{Contract Implementation}
 
-Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s,  and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol, thus inheriting the risks and security of the Juicebox protocol. Revnets leverage Juicebox's discount rate logic for entry curve calculations, its redemption logic for exit curve calculations, and its reserved rate logic for boost calculations.
+Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s,  and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol. Revnets leverage Juicebox's discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
+
+While the price of a Revnet's token is between the price ceiling and the price floor, payments are routed to a Uniswap v3 liquidity pool by a Buyback Delegate contract if possible.\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} The Buyback Delegate contract routes incoming payments to the Uniswap pool if doing so would yield more tokens than a payment into the network would create.
 
 Each Revnet is a Juicebox project, which is deployed, owned, and administrated by one of the contracts below.
 
