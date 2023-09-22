@@ -16,21 +16,24 @@
 
 \section{Mechanism}
 
-Each Revnet accepts a specific currency, chosen when the network is created. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim some of the currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \textit{\$token}.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet accepts a specific currency, chosen when the network is created. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
-Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how \$tokens can be purchased and sold:
+Under the Revnet's initial conditions, payers receive 1 \$token per 1 ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
 
 \begin{itemize}
-  \item The \textbf{Price Ceiling}. The price to create new \$tokens, thus expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.fixed
-  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying \$tokens, thus contracting the \$token supply. The price floor increases dynamically as the network contracts or expands.
-  \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's price is between the price ceiling and price floor, \$tokens are purchased and sold on the market if possible. Otherwise, purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
+  \item The \textbf{Price Ceiling} is the ETH price to create new \$tokens, expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
+  \item The \textbf{Price Floor} is the ETH value that can be reclaimed from the network by destroying \$tokens, contracting the \$token supply. The price floor increases dynamically as the network contracts or expands.
+  \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's market price is between the price ceiling and price floor, \$tokens are purchased and sold on the market. Otherwise, purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
 \end{itemize}
 
 In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand.
 
-Revnets can also specify a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of \$tokens to this address when the network is created. The boost can be used to boost the growth of a network.
+% TODO: Immediate rebate nature of price floor. Instant redemption.
 
-Revnets have no owner. Once they are deployed, their parameters are locked in place.
+% TODO: Develop this. Operator-first.
+Revnets can also specify a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of \$tokens to this address when the network is created.
+
+Once a Revnet is deployed, these parameters are locked in place.
 
 \subsection{Price Ceiling}
 
@@ -39,18 +42,18 @@ The cost to expand the \$token supply increases over time. This is done by reduc
 The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
 
 \begin{equation}
-  T_n = T_1 \times (1 - r_c)^{(n - 1)}
+  T_n = T_1 \cdot (1 - r_c)^{(n - 1)}
 \end{equation}
 
 where:
 \begin{itemize}
-  \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
-  \item $T_1$ is the number of tokens issued per ETH in the first generation,
+  \item $T_n$ is the number of tokens issued per 1 ETH in the $n^{th}$ generation,
+  \item $T_1$ is the number of tokens issued per 1 ETH in the first generation,
   \item $r_c$ is the price ceiling curve, or rate of decrease per generation (expressed as a decimal), and
   \item $n$ is the generation number, which increments sequentially starting from 1.
 \end{itemize}
 
-Since Revnets always have a $T_1$ (initial price) of 1 \$token per ETH, this can be simplified to:
+Since Revnets have a $T_1$ (initial price) of 1 \$token per 1 ETH, this can be simplified to:
 
 \begin{equation}
   T_n = (1 - r_c)^{(n - 1)}
@@ -61,7 +64,7 @@ The price ceiling encourages participants to join the network early. The earlier
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
-   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
+   \caption{This figure shows how $T_n$ (the number of \$tokens issued per 1 ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
 \end{figure}
 
 \clearpage
@@ -78,7 +81,7 @@ Anyone can destroy their \$tokens to reclaim ETH from the network. The amount of
 The price floor function\footnote{Also see the interactive price floor function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
 
 \begin{equation}
-  V_r = \frac{V_t \times x}{s}\left(\left(1-r_f\right)+\frac{r_f \times x}{s}\right)
+  V_r = \frac{V_t \cdot x}{s}\left(\left(1-r_f\right)+\frac{r_f \cdot x}{s}\right)
 \end{equation}
 
 where:
@@ -182,8 +185,6 @@ Revnets
 If the network uses USD-based accounting, payers will receive 1 token per USD worth of ETH under the network's intial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.
 
 \subsection{L2s}
-
-\section{Conclusion}
 
 % \bibliographystyle{plain}
 % \bibliography{references}
