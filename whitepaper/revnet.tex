@@ -14,37 +14,32 @@
   Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{Revnets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
 
-\clearpage
-
 \section{Mechanism}
 
-Each Revnet has its own token (the \textit{network token}), and accepts a currency. For illustrative purposes, this section describes an example $\$token$ priced in ETH. Revnets can both accept and denominate in other currencies in practice.
+Each Revnet has its own token (the \textit{network token}) which represents a claim on the network's revenue. Each Revnet accepts a currency, which people can pay the network with to buy its token (thus joining the network). For illustrative purposes, this section describes a network which accepts ETH and issues a \textit{\$token}.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
-Each Revnet has its own token (the \textit{network token}) which represents a claim on the network's revenue. Anyone can pay ETH into a network to buy its token (thus joining the network). Under the network's initial conditions, payers receive 1 token per ETH.\footnote{For simplicity's sake, this section assumes a Revnet is using ETH-based accounting. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Revnets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
 
-A Revnet's token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how its tokens are issued:
-
-\begin{itemize}
-  \item The \textbf{Price Ceiling}. The price to create new tokens, thus expanding the total supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
-  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying tokens, thus contracting the total supply. The price floor increases dynamically as the network expands over time or contracts.
-  \item The \textbf{Price Window}. Liquidity can be added to a $\$token$ / ETH AMM pool at any time. While the network token's AMM price is between the price ceiling and price floor, purchases and sales are fulfilled by the AMM. Otherwise, purchases and sales are always fulfilled at the price ceiling and price floor.
-\end{itemize}
-
-Revnets also specifiy a \textbf{Boost}. A temporary incentive which routes a percentage of token purchases to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else.
+Under the network's initial conditions, payers receive 1 \$token per ETH. A Revnet's \$token issuance evolves over generations which last a pre-defined length of time (28 days, for example). Three mechanisms determine how \$tokens can be purchased and sold:
 
 \begin{itemize}
-  \item \textbf{The Entry Curve}. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5\% entry curve, 5\% fewer tokens are minted per ETH each generation.
-  \item \textbf{The Exit Curve}. Leaving the network (by burning tokens) reclaims some ETH from the network. The closer an exit curve is to 100\%, the more ETH goes to the last participants to exit, and less ETH goes to the first participants to exit. This incentivizes participants to stay in the network longer. You can visualize and experiment with different exit curves on Desmos.
-  \item \textbf{The Boost}. For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
+  \item The \textbf{Price Ceiling}. The price to create new \$tokens, thus expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
+  \item The \textbf{Price Floor}. The amount of ETH that can be reclaimed from the network by destroying \$tokens, thus contracting the \$token supply. The price floor increases dynamically as the network contracts or expands over time.
+  \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH automated market maker (AMM) pool at any time. While the \$token's price is between the price ceiling and price floor, purchases and sales are fulfilled by the pool if possible. Otherwise, purchases and sales are fulfilled at the price ceiling and price floor.
 \end{itemize}
 
-Network creators can optionally pre-mint a number of tokens for themselves at the time of the network's creation. Revnets have no owner. Once they are deployed, their parameters are locked in place. Funds can only leave the network when people exit.
+Revnets can also specifiy a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of tokens to this address when the network is created.
 
-Revnets can also specify a buyback contract to route incoming payments to a Uniswap liquidity pool if doing so would yield more tokens than paying into the network, as described in Section~\ref{sec:buyback}.
+% \begin{itemize}
+%   \item \textbf{The Entry Curve}. The cost to enter the network increases over time, incentivizing people to join sooner. The entry curve defines how much more expensive tokens become each generation. With a 5\% entry curve, 5\% fewer tokens are minted per ETH each generation.
+%   \item \textbf{The Exit Curve}. Leaving the network (by burning tokens) reclaims some ETH from the network. The closer an exit curve is to 100\%, the more ETH goes to the last participants to exit, and less ETH goes to the first participants to exit. This incentivizes participants to stay in the network longer. You can visualize and experiment with different exit curves on Desmos.
+%   \item \textbf{The Boost}. For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
+% \end{itemize}
 
-\subsection{Entry Curve}
 
-The cost of acquiring a network's tokens becomes more expensive over time. This is done by reducing the number of tokens issued per ETH with each passing generation. The rate at which this reduction occurs is determined by the entry curve $r_{\text{en}}$, which is set by the network's creator.
+\subsection{Price Ceiling}
+
+The cost of acquiring a network's tokens becomes more expensive over time. This is done by reducing the number of tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_\text{en}$ set by the network's creator.
 
 The entry curve function\footnote{Also see the interactive entry curve function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
 
@@ -81,7 +76,7 @@ The entry curve mechanism provides an incentive for participants to join the net
   \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% entry curves $(r_{\text{en}} = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
 
-\subsection{Exit Curve}
+\subsection{Price Floor}
 
 Anyone can exit the network by burning their tokens, which allows them to reclaim some of the network's ETH. The amount of ETH which can be reclaimed is determined by the exit curve $r_{\text{ex}}$, which is set by the network's creator.
 
@@ -112,7 +107,7 @@ This function ensures that the more tokens are burned (i.e., the larger $x$ is),
 
 For a pre-determined length of time (140 days, for example) after a Revnet's creation, a percentage of newly generated tokens are allocated to a specific address. This address could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. When the boost period ends, this allocation drops to 0.
 
-\subsection{Buyback}\label{sec:buyback}
+\subsection{Buyback}
 
 Revnets also have the option to specify a \textit{Buyback Delegate}\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract. A Buyback Delegate contract maximizes the number of tokens that a payer will receive by routing incoming payments to a Uniswap liquidity pool if doing so would yield more tokens than a payment into the network.
 

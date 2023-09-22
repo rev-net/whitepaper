@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  21 SEP 2023 16:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  22 SEP 2023 00:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/f/p/revnet-writing/whitepaper/revnet.tex
-(/home/f/p/revnet-writing/whitepaper/revnet.tex
+**/home/f/w/revnet-writing/whitepaper/revnet.tex
+(/home/f/w/revnet-writing/whitepaper/revnet.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
@@ -304,51 +304,49 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 \c@lstlisting=\count297
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
-
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<figures/single-entry-curve.png, id=96, 985.7628pt x 515.2851pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<figures/single-entry-curve.png, id=91, 985.7628pt x 515.2851pt>
 File: figures/single-entry-curve.png Graphic file (type png)
 <use figures/single-entry-curve.png>
-Package pdftex.def Info: figures/single-entry-curve.png  used on input line 73.
+Package pdftex.def Info: figures/single-entry-curve.png  used on input line 68.
 (pdftex.def)             Requested size: 345.0pt x 180.33676pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3] [4 <./figures/single-entry-curve.png>]
-<figures/multi-entry-curves.png, id=114, 985.7628pt x 515.2851pt>
+[2] [3 <./figures/single-entry-curve.png>]
+<figures/multi-entry-curves.png, id=110, 985.7628pt x 515.2851pt>
 File: figures/multi-entry-curves.png Graphic file (type png)
 <use figures/multi-entry-curves.png>
-Package pdftex.def Info: figures/multi-entry-curves.png  used on input line 80.
+Package pdftex.def Info: figures/multi-entry-curves.png  used on input line 75.
 (pdftex.def)             Requested size: 345.0pt x 180.33676pt.
-<figures/multi-exit-curves.png, id=117, 985.7628pt x 515.2851pt>
+<figures/multi-exit-curves.png, id=113, 985.7628pt x 515.2851pt>
 File: figures/multi-exit-curves.png Graphic file (type png)
 <use figures/multi-exit-curves.png>
-Package pdftex.def Info: figures/multi-exit-curves.png  used on input line 107.
+Package pdftex.def Info: figures/multi-exit-curves.png  used on input line 102.
 (pdftex.def)             Requested size: 345.0pt x 180.33676pt.
- [5
+ [4
 
- <./figures/multi-entry-curves.png>] [6 <./figures/multi-exit-curves.png>]
+ <./figures/multi-entry-curves.png>] [5 <./figures/multi-exit-curves.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 146.
- [7] [8] (./revnet.aux)
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 141.
+ [6] [7] (./revnet.aux)
 Package rerunfilecheck Info: File `revnet.out' has not changed.
-(rerunfilecheck)             Checksum: CDD89C1820B6B7380F74795C0021B651;1744.
+(rerunfilecheck)             Checksum: 6C5B38D42B2A2233AF873FE7129DD8F8;1759.
  ) 
 Here is how much of TeX's memory you used:
  11282 strings out of 477985
- 169822 string characters out of 5840058
+ 169826 string characters out of 5840058
  1892388 words of memory out of 5000000
  31307 multiletter control sequences out of 15000+600000
- 519294 words of font info for 57 fonts, out of 8000000 for 9000
+ 519671 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,8n,76p,1069b,1437s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on revnet.pdf (8 pages, 422702 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on revnet.pdf (7 pages, 420885 bytes).
 PDF statistics:
  260 PDF objects out of 1000 (max. 8388607)
- 203 compressed objects within 3 object streams
- 50 named destinations out of 1000 (max. 500000)
+ 202 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
  144 words of extra memory for PDF output out of 10000 (max. 10000000)
 
