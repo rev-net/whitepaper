@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage{amsmath}
-\input{solidity-highlighting.tex}
 
 \title{Revnets}
 \author{Filip\\f@filip.world}
@@ -18,7 +18,7 @@
 
 Each Revnet accepts a specific currency, chosen when the network is created. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
-Under the Revnet's initial conditions, payers receive 1 \$token per 1 ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
+Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
 
 \begin{itemize}
   \item The \textbf{Price Ceiling} is the ETH price to create new \$tokens, expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
@@ -28,12 +28,11 @@ Under the Revnet's initial conditions, payers receive 1 \$token per 1 ETH. \$tok
 
 In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand.
 
-% TODO: Immediate rebate nature of price floor. Instant redemption.
+When somebody pays a Revnet, they have the option to immediately sell or destroy their tokens for a partial refund. Revnets which route ongoing payments from customers to the network allow buyers to choose between receiving a rebate for part of their purchase, or to participate in the future growth of the network.
 
-% TODO: Develop this. Operator-first.
-Revnets can also specify a \textbf{Boost} which routes a percentage of purchased \$tokens to a specific address for a pre-determined length of time after the network's creation. This could be a developer multisig, a staking rewards contract, an airdrop stockpile, or something else. Network creators also have the option to pre-mint an arbitrary number of \$tokens to this address when the network is created.
+Revnets can specify a \textbf{boost} which routes a percentage of purchased \$tokens to a specific address called the \textbf{boost operator} for a pre-determined length of time after the network's creation. While the boost is active, the boost operator can route percentages of it to the addresses and Revnets of their choosing, but only up to the pre-defined boost percentage (the operator cannot increase the percentage of tokens being routed to the boost). Revnets also have the option to pre-mint an arbitrary number of \$tokens to the boost operator upon the network's creation. The boost operator could be a core team or developer multisig, but it could also be a staking rewards contract, an airdrop stockpile, or something else. 
 
-Once a Revnet is deployed, these parameters are locked in place.
+Once a Revnet is deployed, all of its parameters are locked in place.
 
 \subsection{Price Ceiling}
 
@@ -47,13 +46,13 @@ The price ceiling function\footnote{Also see the interactive price ceiling funct
 
 where:
 \begin{itemize}
-  \item $T_n$ is the number of tokens issued per 1 ETH in the $n^{th}$ generation,
-  \item $T_1$ is the number of tokens issued per 1 ETH in the first generation,
+  \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
+  \item $T_1$ is the number of tokens issued per ETH in the first generation,
   \item $r_c$ is the price ceiling curve, or rate of decrease per generation (expressed as a decimal), and
   \item $n$ is the generation number, which increments sequentially starting from 1.
 \end{itemize}
 
-Since Revnets have a $T_1$ (initial price) of 1 \$token per 1 ETH, this can be simplified to:
+Since Revnets have a $T_1$ (initial price) of 1 \$token per ETH, this can be simplified to:
 
 \begin{equation}
   T_n = (1 - r_c)^{(n - 1)}
@@ -63,14 +62,14 @@ The price ceiling encourages participants to join the network early. The earlier
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{figures/single-entry-curve.png}
-   \caption{This figure shows how $T_n$ (the number of \$tokens issued per 1 ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
+  \includegraphics[width=\textwidth]{figures/single-ceiling-curve.png}
+   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
 \end{figure}
 
 \clearpage
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{figures/multi-entry-curves.png}
+  \includegraphics[width=\textwidth]{figures/multi-ceiling-curves.png}
   \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% price ceiling curves $(r_c = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
 
@@ -97,97 +96,64 @@ Unless $r_f$ is 0, this function ensures that as more \$tokens are destroyed (i.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/multi-exit-curves.png}
+  \includegraphics[width=\textwidth]{figures/multi-floor-curves.png}
   \caption{This figure shows price floor functions with price floor curves of 0\%, 33\%, 66\%, and 100\% $(r_f = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total \$token supply being destroyed, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% price floor curve $(r_f = 0)$, reclaim amounts are linear with respect to the number of tokens being destroyed---a network participant which destroys \textit{e.g.} 10\% of the total token supply can reclaim 10\% of the network's ETH. The larger the price floor curve, the less ETH earlier reclaimers receive.}
 \end{figure}
 
-\section{Contract Implementation}
+\section{Applications}
 
-Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s,  and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol. Revnets leverage Juicebox's discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
+Revnets are particularly beneficial for applications which gain value from network effects, where the value of the service or product increases as more people participate. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator, placing an inherent limitation on the duration and scale of centrally coordinated efforts within a Revnet.
 
-While the price of a Revnet's token is between the price ceiling and the price floor, payments are routed to a Uniswap v3 liquidity pool by a Buyback Delegate contract if possible.\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} The Buyback Delegate contract routes incoming payments to the Uniswap pool if doing so would yield more tokens than a payment into the network would create.
+Revnets excel in scenarios where individual contributions, even when isolated, can contribute to the overall project. An anonymous individual can meaningfully contribute to an online encyclopedia or provide reviews for local businesses, making it feasible to coordinate hundreds or thousands of contributors to a project. Revnets are not well-suited to endeavors which require ongoing support from a centralized, hierarchical structure. For instance, a Revnet would struggle to compete with a large-scale manufacturing company or to orchestrate the construction of complex infrastructure projects.
 
-Each Revnet is a Juicebox project, which is deployed, owned, and administrated by one of the contracts below.
+\subsection{Overcoming Existing Network Effects}
+
+Google Maps is popular, but comes with several downsides: it is proprietary, its API is expensive, it has limited offline support, and it lacks data privacy. OpenStreetMap, an open-source alternative, addresses many (if not all) of these concerns, but lacks user-generated reviews and addresses labels. If OpenStreetMap or a project like it were to use a Revnet model with a price ceiling to reward early participants, it might build enough momentum to become viable and eventually compete with proprietary options.
+
+Similarly, alternative social media platforms, such as Mastodon, and protocols like XMPP or Gemini could effectively generate early momentum as Revnets. These Revnets wouldn't necessarily have to monetize the primary product---in line with existing corporate models, they could derive revenue from advertising or the sale of premium services and products, such as web hosting or educational resources. 
+
+Currently, network effects are often overcome by using investor funding to subsidize a product, undercutting competition. Once these products secure a dominant market position, prices are increased, trapping users in a more expensive ecosystem. Revnets provide an alternative to this model, driving the cost per consumer down as the network achieves scale.
+
+\subsection{Governance}
+
+Revnet tokens adhere to the \texttt{ERC20Votes} standard, meaning they can be used in conjunction with governance tools like Snapshot and Governor Bravo for offchain or onchain token voting governance. Importantly, Revnet governance cannot control the allocation of the network's funds, as funds only leave the network according to the Revnet's pre-defined rules. This means Revnets are not subject to a wide range of governance attacks, hostile takeovers, and misaligned incentives which affect DAOs and other governance structures. Revnets are a strong fit for foundations and governing bodies which steward DeFi protocols, software projects, or any other coordinated effort from a distributed community. Revnet mechanisms encourage long-term orientation and distribute tokens accordingly, leading to favorable token distributions and governance outcomes.
+
+\subsection{Gated Networks}
+
+Ethereum wallets offer straightforward sign-in support for web applications, making Revnets a strong fit for token-gated content. A content creator can deploy a Revnet and allow token holders to access exclusive material, and can use token voting to guide the direction of future projects.
+
+This can also be advantageous for token-gated platforms---since participants will have access to the growth of a network, they're more likely to participate in that growth. This is a major advantage for platforms which derive value from their users:
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{|l|c|}
+  \begin{tabularx}{\textwidth}{|X|X|}
+    \hline \textbf{Category} & \textbf{Examples} \\
+    \hline Traditional social media. & Twitter, Instagram, and Facebook. \\
+    \hline Forums and real-time chat services. & Reddit, Discord, and IRC. \\
+    \hline Content creation and streaming services. & YouTube, Soundcloud, and Twitch. \\
+    \hline Review and rating platforms. & Yelp, TripAdvisor, and Rotten Tomatoes. \\
+    \hline News and Blogging platforms. & Medium, Mirror, and Tumblr. \\
+    \hline Open or volunteer research and science. & Folding@home, BOINC, and LHC@home. \\
+    \hline DeFi platforms which rely on user liquidity. & Uniswap, Compound, and Stargate. \\
     \hline
-    Contract Name & Description \\
-    \hline
-    \texttt{BasicRetailistJBDeployer} & Deploys a basic Revnet. \\
-    \hline
-    \texttt{PayAllocatorRetailistJBDeployer} & \\
-    \hline
-    \texttt{Tiered721PayAllocatorRetailistJBDeployer} & \\
-    \hline
-  \end{tabular}
-  \caption{The Revnet deployer contracts.}
+  \end{tabularx}
 \end{table}
 
-\subsection{BasicRetailistJBDeployer}
+All else being equal, users are more likely to put value into a platform which allows them to receive a portion of future growth over one which doesn't. Community ownership also prevents the platform from switching to a more extractive business model once it achieves scale, which is a frequent misalignment between users and platforms.
 
-Anyone can deploy a basic Revnet by calling the \texttt{BasicRetailistJBDeployer} contract's \texttt{deployBasicNetworkFor(...)} function:
+\section{Contract Implementation}
 
-\begin{lstlisting}[language=Solidity]
-function deployBasicNetworkFor(
-  address _operator,
-  JBProjectMetadata memory _networkMetadata,
-  string memory _name,
-  string memory _symbol,
-  BasicRetailistJBParams memory _data,
-  IJBPaymentTerminal[] memory _terminals,
-  BuybackDelegateSetup memory _buybackDelegateSetup
-)
-  public
-  returns (uint256 networkId)
-{ ... }
-\end{lstlisting}
+Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s, and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol. Revnets leverage Juicebox's discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
 
-This function accepts the following parameters:
+While the price of a Revnet's token is between the price ceiling and the price floor, payments are routed to a Uniswap v3 liquidity pool by a Buyback Delegate\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract if possible. The Buyback Delegate contract routes incoming payments to the Uniswap pool if doing so would yield more tokens than a payment into the network would create.
 
-\begin{itemize}
-  \item \texttt{\_operator} An address that will receive the boost and any pre-minted token. This address has permission to change the boost recipient(s).
-  \item \texttt{\_networkMetadata} The Revnet's metadata content and domain (for use in clients).
-  \item \texttt{\_name} The name of the ERC-20 token being created for the Revnet.
-  \item \texttt{\_symbol} The symbol of the ERC-20 token being created for the Revnet.
-  \item \texttt{\_data} A \texttt{BasicRetailistJBParams} struct which specifies the initial token issuance rate for the first generation, the number of tokens which should be pre-minted to the boost address, the generation length, the entry and exit curves, and the boost percentage and duration.
-  \item \texttt{\_terminals} The Juicebox payment terminals that the network uses to accept payments.
-  \item \texttt{\_buybackDelegateSetup} Info for setting up the buyback delegate to use when determining the best price for new participants.
-\end{itemize}
-
-This function deploys and configures the Revnet, deploys the Revnet's ERC-20, premints tokens as needed, and grants the appropriate permissions to the boost address. It then returns a \texttt{networkId}, the Juicebox project ID of the newly created Revnet.
-
-\section{Applications}
-
-% Software projects (like Wikipedia)
-% Social networks (like Twitter)
-% DAOs
-% Insurance
-% Public goods
-% Artist fan club
-% Political activist groups
-
-\subsection{}
-
-\subsection{Software}
-
-Revnets 
-
-\subsection{Social Networks}
-
-\section{Miscellanea}
-
-\subsection{Network Token}
+Each Revnet is a Juicebox project, which is deployed, owned, and administered by a deployer contract. Our initial implementation includes a basic deployer, a deployer which adds pay delegates\footnote{See the \href{https://docs.juicebox.money/dev/learn/glossary/delegate/}{delegate documentation}.} to be called when the Revnet is paid, and a deployer which allows the Revnet to mint tiered ERC-721 NFTs when people pay it. These deployers are available on \href{https://github.com/mejango/retailism-templates}{GitHub}.
 
 \subsection{Accounting Types}\label{sec:accounting_types}
 
 If the network uses USD-based accounting, payers will receive 1 token per USD worth of ETH under the network's intial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.
 
 \subsection{L2s}
-
-% \bibliographystyle{plain}
-% \bibliography{references}
 
 \end{document}
 

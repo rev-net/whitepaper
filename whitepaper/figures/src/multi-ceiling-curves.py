@@ -6,7 +6,7 @@ generations = 50
 
 rates = [0.01, 0.05, 0.10, 0.25] # different entry curves (1%, 5%, 10%, 25%)
 colors = ['blue', 'green', 'orange', 'red']
-labels = ['1% entry curve', '5% entry curve', '10% entry curve', '25% entry curve']
+labels = ['1% price ceiling curve', '5% price ceiling curve', '10% price ceiling curve', '25% price ceiling curve']
 
 x = np.linspace(1, generations, 1000)
 
@@ -16,7 +16,7 @@ for rate, color, label in zip(rates, colors, labels):
     Tn = T0 * (1 - rate)**np.floor(x - 1)
     plt.step(x, Tn, where='post', color=color, label=label)
 
-plt.title(f"Tokens Issued per ETH Over {generations} Generations for Different Entry Curves", fontsize=20)
+plt.title(f"Tokens Issued per ETH Over {generations} Generations for Different Price Ceiling Curves", fontsize=20)
 plt.xlabel("Generation Number (n)", fontsize=16)
 plt.ylabel("Tokens Issued per ETH ($T_n$)", fontsize=16)
 plt.grid(True)
