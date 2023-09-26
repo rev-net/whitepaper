@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{graphicx}
-\usepackage{tabularx}
 \usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
 
 \title{Revnets}
 \author{Filip\\f@filip.world}
@@ -10,9 +10,11 @@
 \begin{document}
 \maketitle
 
+\begin{quote}
 \begin{abstract}
   Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{Revnets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
+\end{quote}
 
 \section{Mechanism}
 
@@ -26,7 +28,7 @@ Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token
   \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's market price is between the price ceiling and price floor, \$tokens are purchased and sold on the market. Otherwise, purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
 \end{itemize}
 
-In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand.
+In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand. This stabilizes token prices, minimizing risk for participants.
 
 When somebody pays a Revnet, they have the option to immediately sell or destroy their tokens for a partial refund. Revnets which route ongoing payments from customers to the network allow buyers to choose between receiving a rebate for part of their purchase, or to participate in the future growth of the network.
 
@@ -36,9 +38,13 @@ Once a Revnet is deployed, all of its parameters are locked in place.
 
 \subsection{Price Ceiling}
 
-The cost to expand the \$token supply increases over time. This is done by reducing the number of \$tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_c$ set by the network's creator.
+\begin{figure}[h]\label{fig:single-ceiling-curve}
+  \centering
+  \includegraphics[width=\textwidth]{figures/single-ceiling-curve.png}
+   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
+\end{figure}
 
-The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}} can be expressed as:
+The cost to expand the \$token supply increases over time. This is done by reducing the number of \$tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_c$ set by the network's creator. The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}.} can be expressed as:
 
 \begin{equation}
   T_n = T_1 \cdot (1 - r_c)^{(n - 1)}
@@ -62,13 +68,6 @@ The price ceiling encourages participants to join the network early. The earlier
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{figures/single-ceiling-curve.png}
-   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
-\end{figure}
-
-\clearpage
-\begin{figure}[h]
-  \centering
   \includegraphics[width=\textwidth]{figures/multi-ceiling-curves.png}
   \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% price ceiling curves $(r_c = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
@@ -77,7 +76,7 @@ The price ceiling encourages participants to join the network early. The earlier
 
 Anyone can destroy their \$tokens to reclaim ETH from the network. The amount of ETH they can reclaim is determined by the price floor function, which is dynamically calculated based on a price floor curve $r_f$ set by the network's creator, the total \$token supply, and the amount of ETH in the network.
 
-The price floor function\footnote{Also see the interactive price floor function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}} can be expressed as:
+The price floor function\footnote{Also see the interactive price floor function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}.} can be expressed as:
 
 \begin{equation}
   V_r = \frac{V_t \cdot x}{s}\left(\left(1-r_f\right)+\frac{r_f \cdot x}{s}\right)
@@ -126,7 +125,7 @@ This can also be advantageous for token-gated platforms---since participants wil
 
 \begin{table}[h]
   \centering
-  \begin{tabularx}{\textwidth}{|X|X|}
+  \begin{tabular}{|l|l|}
     \hline \textbf{Category} & \textbf{Examples} \\
     \hline Traditional social media. & Twitter, Instagram, and Facebook. \\
     \hline Forums and real-time chat services. & Reddit, Discord, and IRC. \\
@@ -136,24 +135,26 @@ This can also be advantageous for token-gated platforms---since participants wil
     \hline Open or volunteer research and science. & Folding@home, BOINC, and LHC@home. \\
     \hline DeFi platforms which rely on user liquidity. & Uniswap, Compound, and Stargate. \\
     \hline
-  \end{tabularx}
+  \end{tabular}
 \end{table}
 
 All else being equal, users are more likely to put value into a platform which allows them to receive a portion of future growth over one which doesn't. Community ownership also prevents the platform from switching to a more extractive business model once it achieves scale, which is a frequent misalignment between users and platforms.
 
 \section{Contract Implementation}
 
-Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum, Ethereum L2s, and other environments with Solidity support. Revnets are built on top of and extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol. Revnets leverage Juicebox's discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
+Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum and L2s. Revnets extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol, leveraging its discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
 
-While the price of a Revnet's token is between the price ceiling and the price floor, payments are routed to a Uniswap v3 liquidity pool by a Buyback Delegate\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract if possible. The Buyback Delegate contract routes incoming payments to the Uniswap pool if doing so would yield more tokens than a payment into the network would create.
+While a Revnet's token price is between its price ceiling and price floor, payments are routed to a Uniswap v3 liquidity pool by a Buyback Delegate\footnote{See the Buyback Delegate contracts on \href{https://github.com/jbx-protocol/juice-buyback}{GitHub}.} contract if possible. The Buyback Delegate contract routes incoming payments to the Uniswap pool if doing so would yield more tokens than a payment into the network would create.
 
 Each Revnet is a Juicebox project, which is deployed, owned, and administered by a deployer contract. Our initial implementation includes a basic deployer, a deployer which adds pay delegates\footnote{See the \href{https://docs.juicebox.money/dev/learn/glossary/delegate/}{delegate documentation}.} to be called when the Revnet is paid, and a deployer which allows the Revnet to mint tiered ERC-721 NFTs when people pay it. These deployers are available on \href{https://github.com/mejango/retailism-templates}{GitHub}.
 
 \subsection{Accounting Types}\label{sec:accounting_types}
 
-If the network uses USD-based accounting, payers will receive 1 token per USD worth of ETH under the network's intial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens.
+Revnets have the option to use USD-based accounting based on a Chainlink ETH$\leftrightarrow$USD price oracle. With USD-based accounting, payers receive 1 network token per USD worth of ETH under the network's initial conditions. For instance, if the ETH price is 1,000 USD, paying 1 ETH into the network will yield 1,000 tokens. Revnets can manage accounting with any price feed available on the \texttt{JBPrices} contract.\footnote{See the \href{https://docs.juicebox.money/dev/api/contracts/jbprices/}{\texttt{JBPrices} documentation}.}
 
 \subsection{L2s}
+
+Revnets communities will be able to utilize a collection of contracts to route funds between and coordinate across Ethereum mainnet and Ethereum L2s. These contracts are currently under development and are available on \href{https://github.com/Bananapus}{GitHub}.
 
 \end{document}
 
