@@ -4,6 +4,10 @@
 \usepackage{amsmath}
 \usepackage[margin=1in]{geometry}
 
+% TODO:
+% Full tokenomic visualization/simulation.
+% Conclusion.
+
 \title{Revnets}
 \author{Filip\\f@filip.world}
 
@@ -12,13 +16,13 @@
 
 \begin{quote}
 \begin{abstract}
-  Smart contracts have enabled new models for organization and governance, but have in some ways failed to deliver on the promise of truly decentralized coordination. Among other causes, this is often due to the challenge of bootstrapping an organization while creating a product. The centralized nature of this process often leaves the founding team or core developers with little incentive to distribute power by the time a community has been formed. This leaves both parties worse-off: founders must contend with the day-to-day overhead of running a DAO or a governance system which has little to do with their end product, and participants must contend with the risk of misalignment, rugpulls, and scams. \textbf{Revnets} are a new model for creating, scaling, and operating decentralized networks according to pre-defined economic incentives which align participants and remove the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
+  Smart contracts have introduced new models for organization and governance, but frequently fail to realize the potential for decentralized coordination. When forming decentralized autonomous organizations (DAOs) or similar structures, founding groups of developers are met with the challenge of building a community and granting power to it, a time-consuming process unrelated to their end product. This situation also disadvantages participants, who face the risk of misalignment, rugpulls, and scams. \textbf{Revnets} introduce a new model for creating, scaling, and operating decentralized networks. They use pre-defined economic incentives to align participants and eliminate the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
 \end{abstract}
 \end{quote}
 
 \section{Mechanism}
 
-Each Revnet accepts a specific currency, chosen when the network is created. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet accepts a specific currency, which is chosen during the network's creation. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
 Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
 
@@ -28,11 +32,11 @@ Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token
   \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's market price is between the price ceiling and price floor, \$tokens are purchased and sold on the market. Otherwise, purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
 \end{itemize}
 
-In practice, Revnets issue \$tokens at the price ceiling until a \$token$\leftrightarrow$ETH market forms. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand. This stabilizes token prices, minimizing risk for participants.
+In practice, Revnets issue \$tokens at the price ceiling until a market forms between \$tokens and ETH. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand. This stabilizes token prices, minimizing risk for participants.
 
 When somebody pays a Revnet, they have the option to immediately sell or destroy their tokens for a partial refund. Revnets which route ongoing payments from customers to the network allow buyers to choose between receiving a rebate for part of their purchase, or to participate in the future growth of the network.
 
-Revnets can specify a \textbf{boost} which routes a percentage of purchased \$tokens to a specific address called the \textbf{boost operator} for a pre-determined length of time after the network's creation. While the boost is active, the boost operator can route percentages of it to the addresses and Revnets of their choosing, but only up to the pre-defined boost percentage (the operator cannot increase the percentage of tokens being routed to the boost). Revnets also have the option to pre-mint an arbitrary number of \$tokens to the boost operator upon the network's creation. The boost operator could be a core team or developer multisig, but it could also be a staking rewards contract, an airdrop stockpile, or something else. 
+Revnets can specify a \textbf{boost} that directs a percentage of purchased \$tokens to a specific address, known as the \textbf{boost operator}, for a pre-determined length of time after the network's creation. While the boost is active, the boost operator can route percentages of it to the addresses and Revnets of their choosing, but only up to the pre-defined boost percentage (the operator cannot increase the percentage of tokens being routed to the boost). Revnets also have the option to pre-mint an arbitrary number of \$tokens to the boost operator upon the network's creation. The boost operator could be a core team or developer multisig, but it could also be a staking rewards contract, an airdrop stockpile, or something else. 
 
 Once a Revnet is deployed, all of its parameters are locked in place.
 
@@ -101,7 +105,7 @@ Unless $r_f$ is 0, this function ensures that as more \$tokens are destroyed (i.
 
 \section{Applications}
 
-Revnets are particularly beneficial for applications which gain value from network effects, where the value of the service or product increases as more people participate. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator, placing an inherent limitation on the duration and scale of centrally coordinated efforts within a Revnet.
+Revnets are particularly beneficial for applications that leverage network effects, where the service or product's value increases with more participant involvement. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator, placing an inherent limitation on the duration and scale of centrally coordinated efforts within a Revnet.
 
 Revnets excel in scenarios where individual contributions, even when isolated, can contribute to the overall project. An anonymous individual can meaningfully contribute to an online encyclopedia or provide reviews for local businesses, making it feasible to coordinate hundreds or thousands of contributors to a project. Revnets are not well-suited to endeavors which require ongoing support from a centralized, hierarchical structure. For instance, a Revnet would struggle to compete with a large-scale manufacturing company or to orchestrate the construction of complex infrastructure projects.
 
@@ -157,4 +161,3 @@ Revnets have the option to use USD-based accounting based on a Chainlink ETH$\le
 Revnets communities will be able to utilize a collection of contracts to route funds between and coordinate across Ethereum mainnet and Ethereum L2s. These contracts are currently under development and are available on \href{https://github.com/Bananapus}{GitHub}.
 
 \end{document}
-
