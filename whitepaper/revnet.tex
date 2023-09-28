@@ -7,6 +7,8 @@
 % TODO:
 % Full tokenomic visualization/simulation.
 % Conclusion.
+% Expand on ongoing transactions being routed to Revnet.
+% Add note on legality
 
 \title{Revnets}
 \author{Filip\\f@filip.world}
@@ -14,15 +16,23 @@
 \begin{document}
 \maketitle
 
-\begin{quote}
-\begin{abstract}
-  Smart contracts have introduced new models for organization and governance, but frequently fail to realize the potential for decentralized coordination. When forming decentralized autonomous organizations (DAOs) or similar structures, founding groups of developers are met with the challenge of building a community and granting power to it, a time-consuming process unrelated to their end product. This situation also disadvantages participants, who face the risk of misalignment, rugpulls, and scams. \textbf{Revnets} introduce a new model for creating, scaling, and operating decentralized networks. They use pre-defined economic incentives to align participants and eliminate the need for governance, freeing founders from day-to-day management and making rugpulls impossible.
-\end{abstract}
-\end{quote}
+\section{Introduction}
+
+Successful organizational frameworks have always been well-adapted to the technologies of their respective eras. In our current era of internet-native business and user-generated value, popular frameworks have grown anachronistic, and often fail to adequately align participants:
+
+\begin{enumerate}
+  \item Companies operating under a shareholder value model are obligated to prioritize profit-making, efficiency, and market competitiveness, which can come at the expense of even their customers' interests. Companies often use investor funds to undercut competition and secure a dominant market position, at which point they tend to adopt increasingly extractive revenue models to secure profits, trapping users in a more expensive ecosystem. Shareholder value models can also lead to misalignments between shareholder and employee interests. Shareholders (particularly institutional investors and activist shareholders) tend to prefer shorter growth horizons over longer ones, compensation tied to stock performance over predictable salaries, and often support mergers and acquisitions even when disruptive, whereas employees tend to prefer the opposite. This time horizon mismatch often leads to conflicts over investments in R\&D, training, and other long-term growth initiatives, causing large companies to fall behind smaller competitors.
+  \item Decentralized autonomous organizations (DAOs) pose an alternative, but frequently fall short in practice. Most DAOs begin with a core group of founders, developers, and entrepreneurs who aim to expand the DAO through progressive decentralization. Operating a DAO and pursuing decentralization is often time-consuming and resource intensive, and does not further the development of the end product. Progressive decentralization also disadvantages users and investors who must contend with the risk of misalignment, rugpulls, and scams while a core team holds significant power.
+  \item Stakeholder capitalism and triple bottom line models may be beneficial in theory, but frequently fail to align individual incentives and become difficult to enforce in practice.
+\end{enumerate}
+
+Revnets utilize an alternative framework\footnote{\href{https://jango.eth.limo/9E01E72C-6028-48B7-AD04-F25393307132}{Retailism}.} under which wealth is programmatically exchanged over time from newer participants to older ones. Revnets incentivize investors, customers, and builders in the same way---debt is predictably passed from one generation of voluntary participants to the next. A Revnet's output is not free, but the Revnet model drives consumer costs towards zero as the network achieves scale, meaning the network does not need to orient towards excessive retail extraction. Revnets are implemented as ownerless Ethereum smart contracts, removing the need for governance and making rugpulls and scams impossible.
+
+Under the shareholder value model, surplus is returned to investors, meaning employees and customers are sometimes inadequately incentivized. With a properly configured Revnet, all participants receive value according to their contributions: an increasing price ceiling rewards early purchasers who take on more risk, a pre-defined token allocation rewards those who contribute to bootstrapping the network, and the market broadly rewards token holders according to their financial contributions over time.
 
 \section{Mechanism}
 
-Each Revnet accepts a specific currency, which is chosen during the network's creation. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
+Each Revnet accepts a specific currency, which is chosen during the network's creation, and issues its own token. Anyone can pay a Revnet with its currency to issue the Revnet's tokens, or they can destroy tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{In practice, Revnets can accept and denominate prices in other currencies. For a clearer understanding of USD-based accounting, see Section~\ref{sec:accounting_types}.}
 
 Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
 
@@ -34,7 +44,7 @@ Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token
 
 In practice, Revnets issue \$tokens at the price ceiling until a market forms between \$tokens and ETH. From that point onwards, \$tokens are purchased and sold on the market until the price reaches the price ceiling or price floor, at which point the \$token supply will expand or contract to meet market demand. This stabilizes token prices, minimizing risk for participants.
 
-When somebody pays a Revnet, they have the option to immediately sell or destroy their tokens for a partial refund. Revnets which route ongoing payments from customers to the network allow buyers to choose between receiving a rebate for part of their purchase, or to participate in the future growth of the network.
+After someone pays a Revnet, they can sell or destroy their tokens for a partial refund at any time. Revnets which route ongoing payments from customers to the network allow buyers to choose between receiving a rebate for part of their purchase, or to participate in the future growth of the network.
 
 Revnets can specify a \textbf{boost} that directs a percentage of purchased \$tokens to a specific address, known as the \textbf{boost operator}, for a pre-determined length of time after the network's creation. While the boost is active, the boost operator can route percentages of it to the addresses and Revnets of their choosing, but only up to the pre-defined boost percentage (the operator cannot increase the percentage of tokens being routed to the boost). Revnets also have the option to pre-mint an arbitrary number of \$tokens to the boost operator upon the network's creation. The boost operator could be a core team or developer multisig, but it could also be a staking rewards contract, an airdrop stockpile, or something else. 
 
@@ -73,7 +83,7 @@ The price ceiling encourages participants to join the network early. The earlier
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{figures/multi-ceiling-curves.png}
-  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% price ceiling curves $(r_c = 0.01, 0.05, 0.1, 0.25)$. Note that for greater entry curves, $T_n$ tends towards 0 more quickly.}
+  \caption{This figure shows how $T_n$ varies over 50 generations with 1\%, 5\%, 10\%, and 25\% price ceiling curves $(r_c = 0.01, 0.05, 0.1, 0.25)$. Note that for greater price ceiling curves, $T_n$ tends towards 0 more quickly.}
 \end{figure}
 
 \subsection{Price Floor}
@@ -103,6 +113,8 @@ Unless $r_f$ is 0, this function ensures that as more \$tokens are destroyed (i.
   \caption{This figure shows price floor functions with price floor curves of 0\%, 33\%, 66\%, and 100\% $(r_f = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total \$token supply being destroyed, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% price floor curve $(r_f = 0)$, reclaim amounts are linear with respect to the number of tokens being destroyed---a network participant which destroys \textit{e.g.} 10\% of the total token supply can reclaim 10\% of the network's ETH. The larger the price floor curve, the less ETH earlier reclaimers receive.}
 \end{figure}
 
+For a participant to maximize their financial return under the shareholder value model, they must ``time the market'', selling their equity in a company at the time when the market considers it to be most valuable. This may not line up with the company's intrinsic value, as markets frequently overvalue or undervalue companies in step with social trends and investor hype. In contrast, the greatest loss a participant can incur under a Revnet model is the difference between the price ceiling and price floor at the time they purchase \$tokens. As more \$tokens are created or destroyed, the price floor will continue to rise. Participants do not have to worry about their tokens going to zero, and to maximize their return, they only have to hold their tokens for as long as possible. This makes Revnets more ``user friendly'' than other models.
+
 \section{Applications}
 
 Revnets are particularly beneficial for applications that leverage network effects, where the service or product's value increases with more participant involvement. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator, placing an inherent limitation on the duration and scale of centrally coordinated efforts within a Revnet.
@@ -119,7 +131,7 @@ Currently, network effects are often overcome by using investor funding to subsi
 
 \subsection{Governance}
 
-Revnet tokens adhere to the \texttt{ERC20Votes} standard, meaning they can be used in conjunction with governance tools like Snapshot and Governor Bravo for offchain or onchain token voting governance. Importantly, Revnet governance cannot control the allocation of the network's funds, as funds only leave the network according to the Revnet's pre-defined rules. This means Revnets are not subject to a wide range of governance attacks, hostile takeovers, and misaligned incentives which affect DAOs and other governance structures. Revnets are a strong fit for foundations and governing bodies which steward DeFi protocols, software projects, or any other coordinated effort from a distributed community. Revnet mechanisms encourage long-term orientation and distribute tokens accordingly, leading to favorable token distributions and governance outcomes.
+Revnet tokens adhere to the \texttt{ERC20Votes} standard, meaning they can be used in conjunction with governance tools like Snapshot and Governor Bravo for offchain or onchain token voting governance. Importantly, Revnet governance cannot control the allocation of the network's funds, as funds only leave the network according to the Revnet's pre-defined rules. This means Revnets are not subject to a wide range of governance attacks, hostile takeovers, and misaligned incentives which affect DAOs and other governance structures. Revnets can effectively govern DeFi protocols, software projects, and other coordinated efforts across a distributed community. Revnet mechanisms encourage long-term orientation and distribute tokens accordingly, leading to favorable token distributions and governance outcomes.
 
 \subsection{Gated Networks}
 
