@@ -4,11 +4,7 @@
 \usepackage{amsmath}
 \usepackage[margin=1in]{geometry}
 
-% TODO:
 % Full tokenomic visualization/simulation.
-% Conclusion.
-% Expand on ongoing transactions being routed to Revnet.
-% Add note on legality
 
 \title{Revnets}
 \author{Filip\\f@filip.world}
@@ -50,13 +46,9 @@ Revnets can specify a \textbf{boost} that directs a percentage of purchased \$to
 
 Once a Revnet is deployed, all of its parameters are locked in place.
 
-\subsection{Price Ceiling}
+\clearpage
 
-\begin{figure}[h]\label{fig:single-ceiling-curve}
-  \centering
-  \includegraphics[width=\textwidth]{figures/single-ceiling-curve.png}
-   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
-\end{figure}
+\subsection{Price Ceiling}
 
 The cost to expand the \$token supply increases over time. This is done by reducing the number of \$tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_c$ set by the network's creator. The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}.} can be expressed as:
 
@@ -79,6 +71,13 @@ Since Revnets have a $T_1$ (initial price) of 1 \$token per ETH, this can be sim
 \end{equation}
 
 The price ceiling encourages participants to join the network early. The earlier a participant joins, the more \$tokens they receive for their ETH.
+
+\begin{figure}[h]\label{fig:single-ceiling-curve}
+  \centering
+  \includegraphics[width=\textwidth]{figures/single-ceiling-curve.png}
+   \caption{This figure shows how $T_n$ (the number of \$tokens issued per ETH in the $n^{th}$ generation) varies across 50 generations with a 5\% price ceiling curve $(r_c = 0.05)$. Note that $T_n$ decreases rapidly at first, then more gradually as $T_n$ tends towards 0 over many generations.}
+\end{figure}
+
 
 \begin{figure}[h]
   \centering
@@ -117,15 +116,17 @@ For a participant to maximize their financial return under the shareholder value
 
 \section{Applications}
 
-Revnets are particularly beneficial for applications that leverage network effects, where the service or product's value increases with more participant involvement. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator, placing an inherent limitation on the duration and scale of centrally coordinated efforts within a Revnet.
+Revnets can receive funds from token purchasers or from ongoing revenues. In practice, most Revnets will likely rely on token purchases to bootstrap early development, and transition to sustainable funding from revenues as the Revnet launches their product and achieves scale. Because of the bounds on the price window, Revnet token prices are generally stable and predictable, making them useful for projects with a long-term orientation. Revnets can leverage their boost to encourage early growth of the network, which can be useful when overcoming the ``cold start'' effect which new ventures often encounter. Revnets are particularly beneficial for applications that leverage network effects, where the service or product's value increases with more participant involvement. Revnets are most capable of accomplishing complex coordinated tasks while the boost is active and can be strategically deployed by the boost operator.
 
-Revnets excel in scenarios where individual contributions, even when isolated, can contribute to the overall project. An anonymous individual can meaningfully contribute to an online encyclopedia or provide reviews for local businesses, making it feasible to coordinate hundreds or thousands of contributors to a project. Revnets are not well-suited to endeavors which require ongoing support from a centralized, hierarchical structure. For instance, a Revnet would struggle to compete with a large-scale manufacturing company or to orchestrate the construction of complex infrastructure projects.
+Revnets excel in scenarios where individual contributions, even when isolated, can contribute to the overall project. An anonymous individual can meaningfully contribute to an online encyclopedia or provide reviews for local businesses, making it feasible to coordinate hundreds or thousands of contributors to a project. Revnets are not as well-suited to endeavors which require ongoing support from a centralized, hierarchical structure. For instance, a Revnet would likely struggle to compete with a large-scale manufacturing company or to orchestrate the construction of complex infrastructure projects.
 
 \subsection{Overcoming Existing Network Effects}
 
-Google Maps is popular, but comes with several downsides: it is proprietary, its API is expensive, it has limited offline support, and it lacks data privacy. OpenStreetMap, an open-source alternative, addresses many (if not all) of these concerns, but lacks user-generated reviews and addresses labels. If OpenStreetMap or a project like it were to use a Revnet model with a price ceiling to reward early participants, it might build enough momentum to become viable and eventually compete with proprietary options.
+In spaces where products rely on user-driven network effects, newcomers often struggle to secure market share. Even when a newcomer has a better product, it is almost impossible to compete with established networks of users and content. This problem reinforces itself: a newcomer's lack of users makes their product or platform less useful, making it harder to attract users. This cold start problem can be overcome with a properly configured Revnet which incentivizes early users.
 
-Similarly, alternative social media platforms, such as Mastodon, and protocols like XMPP or Gemini could effectively generate early momentum as Revnets. These Revnets wouldn't necessarily have to monetize the primary product---in line with existing corporate models, they could derive revenue from advertising or the sale of premium services and products, such as web hosting or educational resources. 
+Google Maps is popular, but comes with several downsides: it is proprietary, its API is expensive, it has limited offline support, and it lacks data privacy. OpenStreetMap, an open-source alternative, addresses many of these concerns, but lacks user-generated reviews and address labels, making it impractical for most. If OpenStreetMap or a project like it were to use a Revnet model, early participants would receive more of the Revnet's tokens, incentivizing them to leave reviews and label addresses. The boost could also be deployed to reward early contributors. If well-executed, this could generate enough content to make OpenStreetMap a viable option for users who care about data privacy or offline support---those users would continue to generate content, and eventually OpenStreetMap could gather enough data to be a viable option for all users.
+
+Similarly, alternative social media platforms, such as Mastodon, and protocols like XMPP or Gemini could effectively generate early network momentum as Revnets. These Revnets wouldn't necessarily have to monetize the primary product---in line with existing corporate models, they could derive revenue from advertising or the sale of premium services and products, such as web hosting or educational resources. 
 
 Currently, network effects are often overcome by using investor funding to subsidize a product, undercutting competition. Once these products secure a dominant market position, prices are increased, trapping users in a more expensive ecosystem. Revnets provide an alternative to this model, driving the cost per consumer down as the network achieves scale.
 
@@ -156,6 +157,18 @@ This can also be advantageous for token-gated platforms---since participants wil
 
 All else being equal, users are more likely to put value into a platform which allows them to receive a portion of future growth over one which doesn't. Community ownership also prevents the platform from switching to a more extractive business model once it achieves scale, which is a frequent misalignment between users and platforms.
 
+\section{Securities Laws}
+
+The legal status of Revnets and similar models can vary significantly by jurisdiction. This section provides a general overview and does not constitute legal advice. The legal landscape for cryptocurrency technologies is still evolving, and future regulations could impact Revnets.
+
+On July 13th 2023, U.S. District Judge Analisa Torres ruled that Ripple Labs' ``programmatic sales'' of XRP did not violate federal securities laws. From \href{https://storage.courtlistener.com/recap/gov.uscourts.nysd.551082/gov.uscourts.nysd.551082.874.0_5.pdf}{the ruling}\footnote{Securities and Exchange Commission v. Ripple Labs Inc., No. 1:20-cv-10832 (S.D.N.Y. Jul. 13, 2023), ECF No. 874.}:
+
+\begin{quote}
+Ripple's Programmatic Sales were blind bid/ask transactions, and Programmatic Buyers could not have known if their payments of money went to Ripple, or any other seller of XRP... Ripple did not make any promises or offers because Ripple did not know who was buying the XRP, and the purchasers did not know who was selling it.
+\end{quote}
+
+This ruling could apply to transactions involving a Revnet's tokens. Revnet token buyers do not know whether their payments are going to the Revnet itself or to a liquidity pool, and they do not know which future redeemer will receive their funds, meaning these transactions could be considered blind bid/ask transactions. If the Ripple Labs case ruling is upheld, these transactions would likely not violate securities laws in the United States.
+
 \section{Contract Implementation}
 
 Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum and L2s. Revnets extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol, leveraging its discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
@@ -171,5 +184,11 @@ Revnets have the option to use USD-based accounting based on a Chainlink ETH$\le
 \subsection{L2s}
 
 Revnets communities will be able to utilize a collection of contracts to route funds between and coordinate across Ethereum mainnet and Ethereum L2s. These contracts are currently under development and are available on \href{https://github.com/Bananapus}{GitHub}.
+
+\section{Conclusion}
+
+Revnets introduce a promising new organizational framework, with intrinsic incentives for early participation and enduring engagement. Utilizing unowned smart contracts, they avoid many of the trust and governance hurdles often faced by DAOs and similar frameworks. By establishing a predictable token economy with a clear mechanism for value distribution and appreciation, Revnets enable a sustainable user-centric networks. This model is particularly well-suited for ventures which thrive on network effects and community engagement, offering a solution to the cold start problem that many new ventures encounter.
+
+With a predictable price ceiling, floor, and window, Revnets promote long-term participation and reduce the adversarial impact of market speculation which frequently affects other token economies. Their utility extends beyond just being a medium of exchange or a store of value---they act as a catalyst for a wide range of community-driven platforms. In a digital age where user-generated value is essential to network growth, Revnets could play a pivotal role in redefining how value is created, distributed, and sustained. Through Revnets, we envision a future where the divide between users, builders, and investors is blurred, and where communities drive the value and direction of the networks they belong to.
 
 \end{document}
