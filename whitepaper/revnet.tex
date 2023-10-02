@@ -5,6 +5,8 @@
 \usepackage[margin=1in]{geometry}
 
 % Full tokenomic visualization/simulation.
+% Generations/price ceiling curve -> price ceiling increase frequency, price ceiling increase percentage
+% Price floor curve -> price floor tax intensity
 
 \title{Revnets}
 \author{Filip\\f@filip.world}
@@ -30,10 +32,10 @@ Under the shareholder value model, surplus is returned to investors, meaning emp
 
 Each Revnet issues its own token and accepts a specific currency, chosen during the network's creation. Anyone can pay a Revnet with the currency it accepts to issue the Revnet's tokens, and anyone can destroy those tokens to reclaim currency from the Revnet. For illustrative purposes, this section describes a network which accepts ETH and issues a \$token.\footnote{Revnets can accept and denominate prices in other currencies. See Section~\ref{sec:accounting_types}.}
 
-Under the Revnet's initial conditions, payers receive 1 \$token per ETH. \$token issuance evolves over generations which last a pre-defined length of time (1 day, for example). Three mechanisms determine how \$tokens behave:
+Under the Revnet's initial conditions, payers receive 1 \$token per ETH. Three mechanisms determine how \$tokens behave:
 
 \begin{itemize}
-  \item The \textbf{Price Ceiling} is the ETH price to create new \$tokens, expanding the \$token supply. The price ceiling increases at a fixed rate each generation, making network expansion more expensive over time.
+  \item The \textbf{Price Ceiling} is the ETH price to create new \$tokens, expanding the \$token supply. The price ceiling increases by a pre-defined percentage at a pre-defined frequency, making network expansion more expensive over time.
   \item The \textbf{Price Floor} is the ETH value that can be reclaimed from the network by destroying \$tokens, contracting the \$token supply. The price floor increases dynamically as the network contracts or expands.
   \item The \textbf{Price Window}. Liquidity can be added to a \$token$\leftrightarrow$ETH market\footnote{Our initial implementation uses a Uniswap v3 liquidity pool.} at any time. While the \$token's market price is between the price ceiling and price floor, \$tokens are purchased and sold on the market. Otherwise, \$token purchases and sales are fulfilled at the price ceiling or price floor, expanding or contracting the \$token supply in response to demand.
 \end{itemize}
@@ -50,24 +52,25 @@ Once a Revnet is deployed, all of its parameters are locked in place.
 
 \subsection{Price Ceiling}
 
-The cost to expand the \$token supply increases over time. This is done by reducing the number of \$tokens issued per ETH with each passing generation. This reduction is dictated by a price ceiling function, which compounds at a rate $r_c$ set by the network's creator. The price ceiling function\footnote{Also see the interactive price ceiling function on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}.} can be expressed as:
+The cost to expand the \$token supply increases over time, as the number of \$tokens issued per ETH is reduced at a pre-defined frequency. This reduction is dictated by an increase percentage $c$ and an increase frequency $f$ set by the network's creator. The price ceiling\footnote{Also see the interactive price ceiling on \href{https://www.desmos.com/calculator/ey9fhuslwe}{Desmos}.} can be expressed as:
 
 \begin{equation}
-  T_n = T_1 \cdot (1 - r_c)^{(n - 1)}
+  T_t = T_0 \cdot (1 - c)^{t \slash f}
 \end{equation}
 
 where:
 \begin{itemize}
-  \item $T_n$ is the number of tokens issued per ETH in the $n^{th}$ generation,
-  \item $T_1$ is the number of tokens issued per ETH in the first generation,
-  \item $r_c$ is the price ceiling curve, or rate of decrease per generation (expressed as a decimal), and
-  \item $n$ is the generation number, which increments sequentially starting from 1.
+  \item $T_t$ is the number of \$tokens issued per ETH at time $t$,
+  \item $T_0$ is the number of \$tokens issued per ETH when the Revnet is created (when $t = 0$),
+  \item $c$ the percentage by which \$token issuance decrease per frequency, also called the price ceiling increase percentage,
+  \item $t$ is the time elapsed since the network's creation, and
+  \item $f$ is the frequency at which the price increases, also called the price ceiling increase frequency.
 \end{itemize}
 
-Since Revnets have a $T_1$ (initial price) of 1 \$token per ETH, this can be simplified to:
+Since Revnets have a $T_0$ (initial price) of 1 \$token per ETH, this can be simplified to:
 
 \begin{equation}
-  T_n = (1 - r_c)^{(n - 1)}
+  T_n = (1 - c)^{t \slash f}
 \end{equation}
 
 The price ceiling encourages participants to join the network early. The earlier a participant joins, the more \$tokens they receive for their ETH.
@@ -87,12 +90,12 @@ The price ceiling encourages participants to join the network early. The earlier
 
 \subsection{Price Floor}
 
-Anyone can destroy their \$tokens to reclaim ETH from the network. The amount of ETH they can reclaim is determined by the price floor function, which is dynamically calculated based on a price floor curve $r_f$ set by the network's creator, the total \$token supply, and the amount of ETH in the network. Unless the price floor curve is 0 $(r_f = 0)$, destroying $n\%$ of tokens will reclaim less than $n\%$ of the network's ETH.\footnote{Except for when $n = 100\%$} This ``exit tax'' keeps more ETH in the network, increasing the amount of ETH which can be reclaimed by other participants.
+Anyone can destroy their \$tokens to reclaim ETH from the network. The amount of ETH they can reclaim is determined by the price floor, which is dynamically calculated based on the total \$token supply, the amount of ETH in the network, and a price floor tax intensity $i$ set by the network's creator. Unless the price floor tax intensity is 0 $(i = 0)$, destroying $n\%$ of tokens will reclaim less than $n\%$ of the network's ETH.\footnote{Unless $n = 100\%$} With a greater price floor tax intensity, more ETH stays in the network when tokens are destroyed, increasing the amount of ETH which can be reclaimed by other participants.
 
-The price floor function\footnote{Also see the interactive price floor function on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}.} can be expressed as:
+The price floor\footnote{Also see the interactive price floor on \href{https://www.desmos.com/calculator/9pewqesyj5}{Desmos}.} can be expressed as:
 
 \begin{equation}
-  V_r = \frac{V_t \cdot x}{s}\left(\left(1-r_f\right)+\frac{r_f \cdot x}{s}\right)
+  V_r = \frac{V_t \cdot x}{s}\left(\left(1-i\right)+\frac{ix}{s}\right)
 \end{equation}
 
 where:
@@ -100,11 +103,11 @@ where:
   \item $V_r$ is the ETH value which gets reclaimed,
   \item $V_t$ is the total amount of ETH in the network,
   \item $s$ is the total \$token supply,
-  \item $r_f$ is the price floor curve (expressed as a decimal), and
+  \item $i$ is the price floor tax intensity (expressed as a decimal), and
   \item $x$ is the number of \$tokens being burned.
 \end{itemize}
 
-Unless $r_f$ is 0, as more \$tokens are destroyed (in other words, the larger $x$ is), more ETH is reclaimed per token.\footnote{If $r_f$ is 0, the price floor function will be linear, and each \$token will yield the same amount of ETH when destroyed.} This means the first participants to destroy their \$tokens receive less ETH per \$token than participants who destroy their \$tokens later. This incentivizes participants to stay in the network longer in order to increase the amount of ETH they can reclaim.
+Unless $i$ is 0, as more \$tokens are destroyed (in other words, the larger $x$ is), more ETH is reclaimed per token.\footnote{If $i$ is 0, the price floor will be linear, and each \$token will yield the same amount of ETH when destroyed.} This means the first participants to destroy their \$tokens receive less ETH per \$token than participants who destroy their \$tokens later. This incentivizes participants to stay in the network longer in order to increase the amount of ETH they can reclaim.
 
 \begin{figure}[ht]
   \centering
@@ -112,7 +115,7 @@ Unless $r_f$ is 0, as more \$tokens are destroyed (in other words, the larger $x
   \caption{This figure shows price floor functions with price floor curves of 0\%, 33\%, 66\%, and 100\% $(r_f = 0, 0.33, 0.66, 1)$. The $x$ axis represents the percentage of the total \$token supply being destroyed, and the $y$ axis represents the percentage of the network's ETH which is reclaimed. Note that with a 0\% price floor curve $(r_f = 0)$, reclaim amounts scale linearly with respect to the number of tokens being destroyed---a network participant which destroys 1\% of the total token supply receives 1\% of the network's ETH. The larger the price floor curve $r_f$, the less ETH earlier reclaimers receive.}
 \end{figure}
 
-For a participant to maximize their financial return under the shareholder value model, they must ``time the market'', selling their equity in a company at the time when the market considers it to be most valuable. This may not line up with the company's intrinsic value, as markets frequently overvalue or undervalue companies based on social trends, investor hype, and other extrinsic factors. In contrast, \textit{the greatest loss a participant can incur under a Revnet model is the difference between the price ceiling and price floor at the time they purchase \$tokens}. As \$tokens are created or destroyed, the price floor will continue to rise. Participants do not have to worry about the value of their tokens going to zero, and in most cases, to maximize their return, they only have to continue holding their tokens. Revnets make it easier for participants to be ``rational market actors''.
+For a participant to maximize their financial return under the shareholder value model, they must ``time the market'', selling their equity in a company at the time when the market considers it to be most valuable. This may not line up with the company's intrinsic value, as markets frequently overvalue or undervalue companies based on social trends, investor hype, and other extrinsic factors. In contrast, \textit{the greatest loss a participant can incur under a Revnet model is the difference between the price ceiling and price floor at the time they purchase \$tokens}. As \$tokens are created or destroyed, the price floor will continue to rise. Participants do not have to worry about the value of their tokens going to zero, and in most cases, to maximize their return, they only have to continue holding their tokens. Revnets make it easier for participants to be intelligent market actors.
 
 \section{Applications}
 
