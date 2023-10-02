@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1696261542 "/home/f/w/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1696261544 0
-  "/home/f/w/revnet-writing/whitepaper/revnet.tex" 1696261542 24205 599da3895ee34739235e400b12dc331e ""
+["pdflatex"] 1696262246 "/home/f/w/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1696262248 0
+  "/home/f/w/revnet-writing/whitepaper/revnet.tex" 1696262244 24301 5601bd927478c5982df1a9947e3ed0da ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1689853683 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm" 1689853683 1536 05df9db6aeccc4eea94fec15c9024f79 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1689853683 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -96,12 +96,12 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1689853683 40684 9b9ec0b4288972636ff6a3b9c4238efc ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1695250139 325246 7217e157e5466427c18ad35e6ae60d51 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1695250135 6768057 5111cd4670ffa28c95b088e579206645 ""
-  "figures/multi-ceiling-curves.png" 1695676227 82395 5a9851c58cb61b0ad0c3b8bc2eb29cc7 ""
-  "figures/multi-floor-curves.png" 1695676253 149217 bf258eae61e14cc20b362264234f31f9 ""
-  "figures/single-ceiling-curve.png" 1695676290 54434 a86949c9a15c44018e8f57e012b65f73 ""
-  "revnet.aux" 1696261544 3852 f2b4b50d2fce0c6bd9f60a128512bd9d "pdflatex"
-  "revnet.out" 1696261544 1603 7a8802572e1e0f3bd90e026519f45a5d "pdflatex"
-  "revnet.tex" 1696261542 24205 599da3895ee34739235e400b12dc331e ""
+  "figures/multi-ceiling-percentages.png" 1696261991 93111 c80cdb844dff2c843a7c1ccc7e40f768 ""
+  "figures/multi-floor-intensities.png" 1696262018 155821 c390495553358c431ee83fbf58afd314 ""
+  "figures/single-ceiling-percentage.png" 1696262044 52431 ac7e1210af16fa6e79429b34fb31fa2f ""
+  "revnet.aux" 1696262248 3933 c9985f406233b1bc9109e36a0a208990 "pdflatex"
+  "revnet.out" 1696262248 1603 7a8802572e1e0f3bd90e026519f45a5d "pdflatex"
+  "revnet.tex" 1696262244 24301 5601bd927478c5982df1a9947e3ed0da ""
   (generated)
   "revnet.aux"
   "revnet.log"

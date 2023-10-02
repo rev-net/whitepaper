@@ -17,9 +17,9 @@ x_values = np.linspace(0, s, 1000)
 # Plotting
 plt.figure(figsize=(10, 8))
 for r, color in zip(r_ex_vals, colors):
-    plt.plot(x_values, exit_curve(x_values, r), label=f"{int(r*100)}% price floor curve", color=color)
+    plt.plot(x_values, exit_curve(x_values, r), label=f"{int(r*100)}% price floor tax intensity", color=color)
 
-plt.title(f"ETH Reclaimed by Burning Tokens With Different Price Floor Curves", fontsize=20)
+plt.title(f"ETH Reclaimed by Burning Tokens With Different Price Floor Tax Intensities", fontsize=20)
 plt.xlabel("Percent of Tokens Burned", fontsize=18)
 plt.ylabel("Percent of ETH Reclaimed", fontsize=18)
 plt.grid(True)

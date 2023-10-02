@@ -1,4 +1,4 @@
-# Not used in final paper. Included for reference.
+# Not used in final paper. Included for reference. Out of date.
 import numpy as np
 import matplotlib.pyplot as plt
 
