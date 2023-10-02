@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  2 OCT 2023 11:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  2 OCT 2023 12:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -324,12 +324,12 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<figures/single-ceiling-percentage.png, id=88, 1386.1386pt x 750.8853pt>
+<figures/single-ceiling-percentage.png, id=84, 1386.1386pt x 750.8853pt>
 File: figures/single-ceiling-percentage.png Graphic file (type png)
 <use figures/single-ceiling-percentage.png>
 Package pdftex.def Info: figures/single-ceiling-percentage.png  used on input line 80.
 (pdftex.def)             Requested size: 469.75502pt x 254.47267pt.
-<figures/multi-ceiling-percentages.png, id=90, 1386.1386pt x 750.8853pt>
+<figures/multi-ceiling-percentages.png, id=86, 1386.1386pt x 750.8853pt>
 File: figures/multi-ceiling-percentages.png Graphic file (type png)
 <use figures/multi-ceiling-percentages.png>
 Package pdftex.def Info: figures/multi-ceiling-percentages.png  used on input line 87.
@@ -341,7 +341,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [3
 
  <./figures/single-ceiling-percentage.png>]
-<figures/multi-floor-intensities.png, id=106, 1386.1386pt x 750.8853pt>
+<figures/multi-floor-intensities.png, id=102, 1386.1386pt x 750.8853pt>
 File: figures/multi-floor-intensities.png Graphic file (type png)
 <use figures/multi-floor-intensities.png>
 Package pdftex.def Info: figures/multi-floor-intensities.png  used on input line 114.
@@ -352,21 +352,21 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6] [7] [8] (./revnet.aux)
 Package rerunfilecheck Info: File `revnet.out' has not changed.
-(rerunfilecheck)             Checksum: 7A8802572E1E0F3BD90E026519F45A5D;1603.
+(rerunfilecheck)             Checksum: 1398038C44ECC09165A27C5BD283839E;1481.
  ) 
 Here is how much of TeX's memory you used:
- 9472 strings out of 477985
- 148081 string characters out of 5840058
+ 9469 strings out of 477985
+ 148049 string characters out of 5840058
  1865388 words of memory out of 5000000
- 29514 multiletter control sequences out of 15000+600000
+ 29513 multiletter control sequences out of 15000+600000
  519401 words of font info for 57 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,8n,76p,1142b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,76p,1142b,439s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on revnet.pdf (8 pages, 500993 bytes).
+Output written on revnet.pdf (8 pages, 496885 bytes).
 PDF statistics:
- 255 PDF objects out of 1000 (max. 8388607)
- 199 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
- 120 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 247 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 112 words of extra memory for PDF output out of 10000 (max. 10000000)
 

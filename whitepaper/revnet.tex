@@ -159,18 +159,6 @@ Ethereum wallets offer straightforward sign-in support for web applications, mak
 
 All else being equal, users are more likely to put value into a platform which allows them to receive a portion of future growth over one which doesn't. Community ownership also prevents the platform from switching to a more extractive business model once it achieves scale, a frequent misalignment between users and platforms. Individual content creator can also deploy Revnets, and allow token holders to access exclusive material. Content creators can also use token voting to guide the direction of future projects.
 
-\section{Securities Laws}
-
-The legal status of Revnets and similar models can vary significantly by jurisdiction. This section provides a general overview and does not constitute legal advice. The legal landscape for cryptocurrency technologies is still evolving, and future regulations could impact Revnets.
-
-On July 13th 2023, U.S. District Judge Analisa Torres ruled that Ripple Labs' ``programmatic sales'' of XRP did not violate federal securities laws. From \href{https://storage.courtlistener.com/recap/gov.uscourts.nysd.551082/gov.uscourts.nysd.551082.874.0_5.pdf}{the ruling}\footnote{Securities and Exchange Commission v. Ripple Labs Inc., No. 1:20-cv-10832 (S.D.N.Y. Jul. 13, 2023), ECF No. 874.}:
-
-\begin{quote}
-Ripple's Programmatic Sales were blind bid/ask transactions, and Programmatic Buyers could not have known if their payments of money went to Ripple, or any other seller of XRP... Ripple did not make any promises or offers because Ripple did not know who was buying the XRP, and the purchasers did not know who was selling it.
-\end{quote}
-
-This ruling could apply to transactions involving a Revnet's tokens. Revnet token buyers do not know whether their payments are going to the Revnet itself or to a liquidity pool, and they do not know which future redeemer will receive their funds, meaning these transactions could be considered blind bid/ask transactions. If the Ripple Labs case ruling is upheld, these transactions would likely not violate securities laws in the United States.
-
 \section{Contract Implementation}
 
 Revnets are implemented as Solidity smart contracts, and are intended for use on Ethereum and L2s. Revnets extend the Juicebox\footnote{See the \href{https://docs.juicebox.money}{Juicebox Docs}.} protocol, leveraging its discount rate logic for price ceiling calculations, its redemption logic for price floor calculations, and its reserved rate logic for boost calculations.
