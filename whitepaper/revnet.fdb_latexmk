@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1696197637 "/home/f/w/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1696197638 0
-  "/home/f/w/revnet-writing/whitepaper/revnet.tex" 1696197636 23999 c238ac975b1adf57f92bfa5958c8277a ""
+["pdflatex"] 1696209343 "/home/f/w/revnet-writing/whitepaper/revnet.tex" "revnet.pdf" "revnet" 1696209344 0
+  "/home/f/w/revnet-writing/whitepaper/revnet.tex" 1696209342 24037 c951a8df82cf16c48662f398c5a3c98d ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1689853683 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm" 1689853683 1536 05df9db6aeccc4eea94fec15c9024f79 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1689853683 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -101,9 +101,9 @@
   "figures/multi-ceiling-curves.png" 1695676227 82395 5a9851c58cb61b0ad0c3b8bc2eb29cc7 ""
   "figures/multi-floor-curves.png" 1695676253 149217 bf258eae61e14cc20b362264234f31f9 ""
   "figures/single-ceiling-curve.png" 1695676290 54434 a86949c9a15c44018e8f57e012b65f73 ""
-  "revnet.aux" 1696197638 3666 3b15ccd87c348052c83f5d1874df85a6 "pdflatex"
-  "revnet.out" 1696197638 1603 7a8802572e1e0f3bd90e026519f45a5d "pdflatex"
-  "revnet.tex" 1696197636 23999 c238ac975b1adf57f92bfa5958c8277a ""
+  "revnet.aux" 1696209344 3852 f2b4b50d2fce0c6bd9f60a128512bd9d "pdflatex"
+  "revnet.out" 1696209344 1603 7a8802572e1e0f3bd90e026519f45a5d "pdflatex"
+  "revnet.tex" 1696209342 24037 c951a8df82cf16c48662f398c5a3c98d ""
   (generated)
   "revnet.aux"
   "revnet.log"
