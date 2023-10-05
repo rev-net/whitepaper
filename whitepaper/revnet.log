@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  2 OCT 2023 12:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.9.20)  2 OCT 2023 15:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -238,24 +238,24 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 ) (./revnet.aux)
 \openout1 = `revnet.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
  (/usr/share/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
  (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -263,7 +263,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 14.
+Package hyperref Info: Link coloring ON on input line 12.
  (./revnet.out) (./revnet.out)
 \@outlinefile=\write3
 \openout3 = `revnet.out'.
@@ -327,12 +327,12 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 <figures/single-ceiling-percentage.png, id=84, 1386.1386pt x 750.8853pt>
 File: figures/single-ceiling-percentage.png Graphic file (type png)
 <use figures/single-ceiling-percentage.png>
-Package pdftex.def Info: figures/single-ceiling-percentage.png  used on input line 80.
+Package pdftex.def Info: figures/single-ceiling-percentage.png  used on input line 78.
 (pdftex.def)             Requested size: 469.75502pt x 254.47267pt.
 <figures/multi-ceiling-percentages.png, id=86, 1386.1386pt x 750.8853pt>
 File: figures/multi-ceiling-percentages.png Graphic file (type png)
 <use figures/multi-ceiling-percentages.png>
-Package pdftex.def Info: figures/multi-ceiling-percentages.png  used on input line 87.
+Package pdftex.def Info: figures/multi-ceiling-percentages.png  used on input line 85.
 (pdftex.def)             Requested size: 469.75502pt x 254.47267pt.
 
 
@@ -344,7 +344,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/multi-floor-intensities.png, id=102, 1386.1386pt x 750.8853pt>
 File: figures/multi-floor-intensities.png Graphic file (type png)
 <use figures/multi-floor-intensities.png>
-Package pdftex.def Info: figures/multi-floor-intensities.png  used on input line 114.
+Package pdftex.def Info: figures/multi-floor-intensities.png  used on input line 112.
 (pdftex.def)             Requested size: 469.75502pt x 254.47267pt.
  [4 <./figures/multi-ceiling-percentages.png>] [5 <./figures/multi-floor-intensities.png>]
 
