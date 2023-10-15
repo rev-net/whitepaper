@@ -282,29 +282,50 @@ function sellRevnetTokens(revnetTokensSpent, r, p) {
   return { ethReceived, source };
 }
 
-function poissonRandomNumber(lambda) {
+
+function mod(x, y) {
+  return x % y;
+}
+
+function HDRprng(PM_Index, varID, entity, seed3, seed4) {
+  var r = (mod((mod(mod(999999999999989, mod(PM_Index * 2499997 + varID * 1800451 + entity * 2000371 + seed3 * 1796777 +
+      seed4 * 2299603, 7450589) * 4658 + 7450581) * 383, 99991) * 7440893 + mod(mod(999999999999989,
+      mod(PM_Index * 2246527 + varID * 2399993 + entity * 2100869 + seed3 * 1918303 + seed4 * 1624729, 7450987) *
+      7580 + 7560584) * 17669, 7440893)) * 1343, 4294967296) + 0.5) / 4294967296;
+  return r;
+}
+
+function poissonRandomNumber(lambda,r) {
   let L = Math.exp(-lambda);
   let k = 0;
   let p = 1;
 
   do {
     k++;
-    p *= Math.random();
+    //p *= Math.random();
+    p *= HDRprng(k, r.day, 1, 1, 1); // KMac need to double check not accidently correlating. Might need trader index
   } while (p > L);
-
+  console.log("poisson", k - 1);
   return k - 1;
 }
 
-function normalRandomNumber() {
+function normalRandomNumber(i, day) {
   let u = 0,
     v = 0;
-  while (u === 0) u = Math.random();
+  /* while (u === 0) u = Math.random();
   while (v === 0) v = Math.random();
+  console.log(u,v) */
+  while (u === 0) u = HDRprng(100001, i, day, 1, 1)
+  while (v === 0) v =HDRprng(100002, i, day, 1, 1)
+  console.log(u,v);
+  //while (v === 0) v = HDRprng(100002, 1, 1, 1, 1);
+  console.log("normal", Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v));
   return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
 
-function logNormRandomNumber(mu = 0, sigma = 1.5) {
-  return Math.exp(mu + sigma * normalRandomNumber());
+function logNormRandomNumber(mu = 0, sigma = 1.5, i, day) {
+  console.log("lognorm", Math.exp(mu + sigma * normalRandomNumber(i, day)));
+  return Math.exp(mu + sigma * normalRandomNumber(i, day));
 }
 
 function randomTrial() {
@@ -392,11 +413,13 @@ function simulate() {
   for (; r.day < daysToCalculate; r.incrementDay()) {
     // Make purchases
     let dailyPurchases = [];
-    for (let i = 0; i < poissonRandomNumber(dailyPurchasesLambda); i++) {
+    for (let i = 0; i < poissonRandomNumber(dailyPurchasesLambda,r); i++) {
       let t = new Trader();
       let ethSpent = logNormRandomNumber(
         purchaseAmountMean,
-        purchaseAmountVariance
+        purchaseAmountVariance,
+        i,
+        r.day
       );
       let { revnetTokensReceived, source } = purchaseRevnetTokens(
         ethSpent,
@@ -411,9 +434,11 @@ function simulate() {
 
     // Make sales
     let dailySales = [];
-    traders.forEach((t) => {
-      if (t.sale) return;
-      if (Math.random() < saleProbability) {
+    traders.forEach((t, index) => {
+      if (t.sale) return; // ??
+      // if (Math.random() < saleProbability) {
+        console.log("sale", saleProbability)
+      if (HDRprng(index,r.day,1,1,1) < saleProbability) {
         let revnetTokensSpent =
           t.purchase.revnetTokensReceived * (1 - revnetTokenLiquidityRatio);
         let { ethReceived, source } = sellRevnetTokens(
@@ -716,7 +741,7 @@ function main() {
     title: "Cumulative Tokens Sent to Boost",
     style: chartStyles,
     x: { label: "Day" },
-    y: { label: "Tokens", grid: true },
+    y: { label: "Tokens", grid: true, domain: [0, 300] },
     marks: [
       Plot.text(
         simulationData,
