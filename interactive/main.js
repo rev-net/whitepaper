@@ -303,9 +303,8 @@ function poissonRandomNumber(lambda,r) {
   do {
     k++;
     //p *= Math.random();
-    p *= HDRprng(k, r.day, 1, 1, 1); // KMac need to double check not accidently correlating. Might need trader index
+    p *= HDRprng(simTrial.value,k, r.day, 1, 1); // KMac need to double check not accidently correlating. Might need trader index
   } while (p > L);
-  console.log("poisson", k - 1);
   return k - 1;
 }
 
@@ -314,17 +313,13 @@ function normalRandomNumber(i, day) {
     v = 0;
   /* while (u === 0) u = Math.random();
   while (v === 0) v = Math.random();
-  console.log(u,v) */
-  while (u === 0) u = HDRprng(100001, i, day, 1, 1)
-  while (v === 0) v =HDRprng(100002, i, day, 1, 1)
-  console.log(u,v);
-  //while (v === 0) v = HDRprng(100002, 1, 1, 1, 1);
-  console.log("normal", Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v));
+  */
+  while (u === 0) u = HDRprng(simTrial.value, i, day, 1, 1)
+  while (v === 0) v =HDRprng(simTrial.value, i, day, 2, 1)
   return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 }
 
 function logNormRandomNumber(mu = 0, sigma = 1.5, i, day) {
-  console.log("lognorm", Math.exp(mu + sigma * normalRandomNumber(i, day)));
   return Math.exp(mu + sigma * normalRandomNumber(i, day));
 }
 
@@ -396,6 +391,9 @@ function simulate() {
   let saleProbability = Number(
     document.getElementById("saleProbability").value
   );
+  let simTrial = Number(
+    document.getElementById("simTrial").value
+  );
 
   const r = new Revnet(
     priceCeilingIncreasePercentage,
@@ -437,8 +435,7 @@ function simulate() {
     traders.forEach((t, index) => {
       if (t.sale) return; // ??
       // if (Math.random() < saleProbability) {
-        console.log("sale", saleProbability)
-      if (HDRprng(index,r.day,1,1,1) < saleProbability) {
+      if (HDRprng(simTrial,index,r.day,1,1) < saleProbability) {
         let revnetTokensSpent =
           t.purchase.revnetTokensReceived * (1 - revnetTokenLiquidityRatio);
         let { ethReceived, source } = sellRevnetTokens(
