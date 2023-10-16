@@ -977,7 +977,7 @@ function main() {
     color: {
       scheme: "Warm",
       legend: true,
-      label: "Day Purchased",
+      label: "Earlier Purchase - Later Purchase",
       style: { background: "none" },
     },
     r: { label: "Tokens Purchased" },
@@ -995,11 +995,11 @@ function main() {
   });
 
   dashboard.appendChild(tokenPricePlot);
+  dashboard.appendChild(profitabilityPlot);
   dashboard.appendChild(revnetPlot);
-  dashboard.appendChild(liquidityPoolPlot);
   dashboard.appendChild(boostPlot);
   dashboard.appendChild(cumulativeVolumesPlot);
-  dashboard.appendChild(profitabilityPlot);
+  dashboard.appendChild(liquidityPoolPlot);
   dashboard.appendChild(purchasePlot)
   dashboard.appendChild(salePlot)
   console.timeEnd("main");
